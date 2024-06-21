@@ -31,5 +31,7 @@ app.MapControllers();
 
 // Mapping created Enpoints
 app.MapUserEndPoint();
+app.MaptrackendPoint();
+app.MapArtistEdnPoint();
 
 app.Run();
