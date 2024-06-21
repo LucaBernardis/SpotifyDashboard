@@ -1,3 +1,4 @@
+using SpotifyDashboard.Server.Endpoints;
 using SpotifyDashboard.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,5 +28,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Mapping created Enpoints
+app.MapUserEndPoint();
 
 app.Run();
