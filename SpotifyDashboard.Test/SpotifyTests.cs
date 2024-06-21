@@ -1,6 +1,8 @@
 namespace SpotifyDashboard.Test;
 
 public class SpotifyTests
+
+
 {
     [Fact(DisplayName = "Ritorna l'artista preferito dall'utente")]
     public void ArtistaPreferito()
