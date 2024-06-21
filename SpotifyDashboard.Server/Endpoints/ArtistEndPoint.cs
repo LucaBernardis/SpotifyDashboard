@@ -4,7 +4,7 @@ namespace SpotifyDashboard.Server.Endpoints
     public static class ArtistEndPoint
     {
 
-        public static IEndpointRouteBuilder MapArtistEdnPoint(this IEndpointRouteBuilder builder)
+        public static IEndpointRouteBuilder MapArtistEndPoint(this IEndpointRouteBuilder builder)
         {
 
             var group = builder.MapGroup("/artist")

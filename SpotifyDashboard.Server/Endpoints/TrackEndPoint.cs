@@ -1,10 +1,12 @@
 ﻿
+using SpotifyDashboard.Server.Models;
+
 namespace SpotifyDashboard.Server.Endpoints
 {
     public static class TrackEndPoint
     {
 
-        public static IEndpointRouteBuilder MaptrackendPoint(this IEndpointRouteBuilder builder)
+        public static IEndpointRouteBuilder MapTrackEndPoint(this IEndpointRouteBuilder builder)
         {
 
             var group = builder.MapGroup("/track")
@@ -23,9 +25,9 @@ namespace SpotifyDashboard.Server.Endpoints
             return builder;
         }
 
-        private static async Task GetWeeklyListenTimeAsync(HttpContext context)
+        private static async Task<Track> GetWeeklyListenTimeAsync(HttpContext context)
         {
-            throw new NotImplementedException();
+            return new Track();
         }
 
         private static async Task GetDailyListenTimeAsync(HttpContext context)

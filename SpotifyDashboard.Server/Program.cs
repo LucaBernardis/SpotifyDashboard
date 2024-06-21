@@ -27,11 +27,11 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers();
 
 // Mapping created Enpoints
 app.MapUserEndPoint();
-app.MaptrackendPoint();
-app.MapArtistEdnPoint();
+app.MapTrackEndPoint();
+app.MapArtistEndPoint();
 
 app.Run();
