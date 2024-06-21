@@ -1,3 +1,5 @@
+using SpotifyDashboard.Server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddScoped<ArtistService>();
+builder.Services.AddScoped<TrackService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 

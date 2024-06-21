@@ -1,6 +1,6 @@
 ﻿namespace SpotifyDashboard.Server.Services
 {
-    public class SongService
+    public class TrackService
     {
     }
 }
