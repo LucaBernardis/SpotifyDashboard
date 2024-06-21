@@ -14,6 +14,7 @@ namespace SpotifyDashboard.Server.Endpoints
 
             group.MapGet("/getData", GetUserDataAsync);
 
+
             return builder;
         }
 
