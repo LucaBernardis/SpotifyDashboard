@@ -4,7 +4,7 @@
     {
         public string DisplayName { get; set; }
         public string Email { get; set; }
-        public int Id { get; set; } = 1;
+        public int Id { get; set; }
 
         public User()
         {
