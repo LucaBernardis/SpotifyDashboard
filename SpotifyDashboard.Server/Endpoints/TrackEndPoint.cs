@@ -9,7 +9,7 @@ namespace SpotifyDashboard.Server.Endpoints
         public static IEndpointRouteBuilder MapTrackEndPoint(this IEndpointRouteBuilder builder)
         {
 
-            var group = builder.MapGroup("/track")
+            var group = builder.MapGroup("/serverApi/track")
                 .WithTags("tracks");
 
             group.MapGet("/dailyTrack", GetDailytrackAsync);

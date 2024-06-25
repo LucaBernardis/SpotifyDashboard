@@ -7,7 +7,7 @@ namespace SpotifyDashboard.Server.Endpoints
         public static IEndpointRouteBuilder MapArtistEndPoint(this IEndpointRouteBuilder builder)
         {
 
-            var group = builder.MapGroup("/artist")
+            var group = builder.MapGroup("/serverApi/artist")
                 .WithTags("Artist");
 
             group.MapGet("/data", GetArtistDataAsync);

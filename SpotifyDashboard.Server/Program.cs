@@ -13,8 +13,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ArtistService>();
 builder.Services.AddScoped<TrackService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddCors();
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment())
+    app.UseCors(app =>
+    {
+        app.AllowAnyOrigin();
+        app.AllowAnyMethod();
+        app.AllowAnyHeader();
+    });
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

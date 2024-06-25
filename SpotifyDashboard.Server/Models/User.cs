@@ -4,12 +4,18 @@
     {
         public string DisplayName { get; set; }
         public string Email { get; set; }
-        public int Id { get; set; }
+        public int Id { get; set; } = 1;
 
         public User()
         {
             DisplayName = string.Empty;
             Email = string.Empty;
+        }
+
+        public User(string displayName, string email)
+        {
+            DisplayName = displayName;
+            Email = email;
         }
     }
 }
