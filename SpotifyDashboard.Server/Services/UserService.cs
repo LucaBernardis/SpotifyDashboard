@@ -1,5 +1,4 @@
 ﻿using SpotifyDashboard.Server.Models;
-using System.Net.Http.Headers;
 
 namespace SpotifyDashboard.Server.Services
 {
@@ -12,20 +11,14 @@ namespace SpotifyDashboard.Server.Services
             _httpClient = new HttpClient();
         }
 
-        public async Task<User> GetUserData(string token)
+        public async Task<User> GetUserData()
         {
             _httpClient.BaseAddress = new Uri("https://api.spotify.com/v1/");
-            using HttpResponseMessage response = await _httpClient.GetAsync("me");
+            using HttpResponseMessage repsonse = await _httpClient.GetAsync("me");
 
-            var splitted = token.Split(' ');
+            Console.WriteLine(repsonse.Content);
 
-            var type = splitted[0];
-            var auth = splitted[1];
-
-            response.Headers.Add(type, auth);
-            Console.WriteLine(response.Content.ToString);
-
-           return new User("Luca", auth);
+           return new User();
         }
     }
 }
