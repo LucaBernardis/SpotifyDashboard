@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
         app.AllowAnyHeader();
     });
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -37,7 +37,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-//app.MapControllers();
+app.MapControllers();
 
 // Mapping created Enpoints
 app.MapUserEndPoint();

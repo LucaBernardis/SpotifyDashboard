@@ -1,5 +1,8 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
 using SpotifyDashboard.Server.Models;
+using SpotifyDashboard.Server.Services;
+using System.Collections;
 
 namespace SpotifyDashboard.Server.Endpoints
 {
@@ -40,9 +43,10 @@ namespace SpotifyDashboard.Server.Endpoints
             throw new NotImplementedException();
         }
 
-        private static async Task GetTopTenSongsAsync(HttpContext context)
-        {
-            throw new NotImplementedException();
+        private static async Task<IEnumerable<Track>> GetTopTenSongsAsync([FromHeader(Name = "Authorization")] string token, TrackService data)
+       {
+            var tracks = await data.GetTopTenSongs(token);
+            return tracks;
         }
 
         private static async Task GetDailytrackAsync(HttpContext context)

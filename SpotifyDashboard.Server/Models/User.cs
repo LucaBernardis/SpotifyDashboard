@@ -15,5 +15,8 @@ namespace SpotifyDashboard.Server.Models
         [JsonPropertyName("id")]
         public string? Id { get; set; }
 
+        [JsonPropertyName("images.url")]
+        public string? Imageurl { get; set; }
+
     }
 }

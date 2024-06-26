@@ -1,19 +1,18 @@
-﻿namespace SpotifyDashboard.Server.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SpotifyDashboard.Server.Models
 {
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Skip)]
+
     public class Track
     {
-        public Artist Artist { get; set; }
-        public string Name { get; set; }
-        public string? ImageUrl { get; set; }
-        public string[] Genre { get; set; }
-        public int Id { get; set; }
+        [JsonPropertyName("artists[*]/name")]
+        public string Artists { get; set; }
 
-        public Track()
-        {
-            Artist = new Artist();
-            Name = string.Empty;
-            ImageUrl = string.Empty;
-            Genre = []; 
-        }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
+
+        [JsonPropertyName("id")]
+        public string? Id { get; set; }
     }
 }
