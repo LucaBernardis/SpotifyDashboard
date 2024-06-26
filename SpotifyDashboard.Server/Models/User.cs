@@ -1,21 +1,19 @@
-﻿namespace SpotifyDashboard.Server.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SpotifyDashboard.Server.Models
 {
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Skip)]
+
     public class User
     {
-        public string DisplayName { get; set; }
-        public string Email { get; set; }
-        public int Id { get; set; }
+        [JsonPropertyName("display_name")]
+        public string? DisplayName { get; set; }
 
-        public User()
-        {
-            DisplayName = string.Empty;
-            Email = string.Empty;
-        }
+        [JsonPropertyName("email")]
+        public string? Email { get; set; }
 
-        public User(string displayName, string email)
-        {
-            DisplayName = displayName;
-            Email = email;
-        }
+        [JsonPropertyName("id")]
+        public string? Id { get; set; }
+
     }
 }
