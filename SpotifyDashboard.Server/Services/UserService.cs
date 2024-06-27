@@ -1,6 +1,7 @@
 ﻿using SpotifyDashboard.Server.Models;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace SpotifyDashboard.Server.Services
 {
@@ -28,7 +29,13 @@ namespace SpotifyDashboard.Server.Services
             response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
 
             var responseBody = await response.Content.ReadAsStringAsync();
+
+            var jObj = JsonNode.Parse(responseBody).AsObject();
+            var images = jObj["images"].AsArray();
+
             var userData = JsonSerializer.Deserialize<User>(responseBody);
+
+            userData.Imageurl = images[0]["url"]?.ToString();
 
             return userData;
         }
