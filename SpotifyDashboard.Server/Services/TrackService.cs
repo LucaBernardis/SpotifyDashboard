@@ -39,6 +39,13 @@ namespace SpotifyDashboard.Server.Services
                 {
                     track.Artist = artists[0]["name"]?.ToString();
                 }
+
+                var album = item["album"].AsObject();
+                var images = album["images"].AsArray();
+                if (images.Count > 0)
+                {
+                    track.ImageUrl = images[0]["url"]?.ToString();
+                }
             }
 
             return tracks;
