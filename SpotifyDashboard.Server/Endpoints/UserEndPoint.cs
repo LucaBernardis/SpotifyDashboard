@@ -15,8 +15,15 @@ namespace SpotifyDashboard.Server.Endpoints
 
             group.MapGet("/getData", GetUserDataAsync);
 
+            group.MapGet("/getPlaylists", GetUserPlaylistsAsync);
 
             return builder;
+        }
+
+        private static async Task<IEnumerable<Playlist>> GetUserPlaylistsAsync([FromHeader(Name = "Authorization")] string token, UserService data)
+        {
+            var playlists = await data.GetUserPlaylist(token);
+            return playlists;
         }
 
         private static async Task<User> GetUserDataAsync([FromHeader(Name = "Authorization")] string token ,UserService data)
