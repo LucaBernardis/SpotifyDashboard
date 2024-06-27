@@ -14,17 +14,20 @@ namespace SpotifyDashboard.Server.Endpoints
             var group = builder.MapGroup("/serverApi/artist")
                 .WithTags("Artist");
 
-            group.MapGet("/data", GetArtistDataAsync);
 
             group.MapGet("/topArtist", GetUserTopArtist);
+
+            group.MapGet("/topArtistTrack/{id}", GetTopArtistTopSong);
 
             return builder;
         }
 
-        private static async Task GetArtistDataAsync(HttpContext context)
+        private static async Task<Track> GetTopArtistTopSong([FromHeader(Name = "Authorization")] string token, [FromRoute] string id, ArtistService data)
         {
-            throw new NotImplementedException();
+            var topTrack = await data.GetArtistTopTrack(token, id);
+            return topTrack;
         }
+
 
         private static async Task<Artist> GetUserTopArtist([FromHeader(Name = "Authorization")] string token, ArtistService data)
         {
