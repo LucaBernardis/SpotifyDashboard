@@ -11,14 +11,17 @@ namespace SpotifyDashboard.Server.Endpoints
         public static IEndpointRouteBuilder MapArtistEndPoint(this IEndpointRouteBuilder builder)
         {
 
+            // EndPoint Address to call from the front-end
             var group = builder.MapGroup("/serverApi/artist")
                 .WithTags("Artist");
 
-
+            // Retrieve the data of the urser's favourite artist
             group.MapGet("/topArtist", GetUserTopArtist);
 
+            // Retrieve the best track of the user's favourite artist
             group.MapGet("/topArtistTrack/{id}", GetTopArtistTopSong);
 
+            // Retrieve the albums of the user's favourite artist
             group.MapGet("/getAlbums/{id}", GetArtistAlbums);
 
             return builder;

@@ -13,13 +13,15 @@ namespace SpotifyDashboard.Server.Endpoints
         public static IEndpointRouteBuilder MapTrackEndPoint(this IEndpointRouteBuilder builder)
         {
 
+            // EndPoint Address to call from the front-end
             var group = builder.MapGroup("/serverApi/track")
                 .WithTags("tracks");
 
+            // Retrieve the user top tracks
             group.MapGet("/topTenTracks", GetTopTenSongsAsync);
 
+            // Retrieve some recommended tracks based on the passed parameters
             group.MapGet("/getRecommended", GetRecommendedTracks);
-
 
             return builder;
         }
