@@ -65,7 +65,7 @@ namespace SpotifyDashboard.Server.Services
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
 
             // Http call to the spotify api address
-            using HttpResponseMessage response = await _httpClient.GetAsync($"v1/me/playlists?limit=10");
+            using HttpResponseMessage response = await _httpClient.GetAsync($"v1/me/playlists");
 
             response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
 
