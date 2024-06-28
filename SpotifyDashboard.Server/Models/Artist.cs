@@ -5,7 +5,8 @@ namespace SpotifyDashboard.Server.Models
     [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Skip)]
     public class Artist
     {
-        //public string[] Genres { get; set; }
+        
+        public string? Genres { get; set; }
 
         [JsonPropertyName("id")]
         public string? Id { get; set; }

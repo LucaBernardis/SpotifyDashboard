@@ -34,6 +34,9 @@ namespace SpotifyDashboard.Server.Services
             var artistJson = items[0].ToJsonString();
             var artist = JsonSerializer.Deserialize<Artist>(artistJson);
 
+            var genres = items[0]["genres"].AsArray();
+            artist.Genres = genres[0]?.ToString();
+
             if (artist != null)
             {
                 var images = jObj["items"][0]["images"].AsArray();
@@ -67,10 +70,9 @@ namespace SpotifyDashboard.Server.Services
 
             track[0].Name = tracks[0]["name"]?.ToString();
 
-
-
             var artist = tracks[0]["artists"].AsArray();
             track[0].Artist = artist[0]["name"]?.ToString();
+
             var topTrack = track[0];
             return topTrack;
         }
