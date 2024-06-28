@@ -77,5 +77,45 @@ namespace SpotifyDashboard.Server.Services
             return topTrack;
         }
 
+        public async Task<IEnumerable<Album>> GetAlbums(string token, string artistId)
+        {
+            var split = token.Split(' ');
+            var auth = split[1];
+
+            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
+            using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/artists/{artistId}/albums");
+
+            response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var jObj = JsonNode.Parse(responseBody)?.AsObject();
+            var albums = jObj["items"]?.AsArray();
+
+
+            var albumList = JsonSerializer.Deserialize<List<Album>>(albums.ToJsonString());
+
+            for(int i = 0; i < albumList.Count; i++)
+            {
+                var album = albumList[i];
+                var item = albums[i];
+
+                var extUrl = item["external_urls"]?.AsObject();
+                album.SpotifyUrl = extUrl["spotify"]?.ToString();
+
+                var image = item["images"]?.AsArray();
+                var imageUrl = image[0]["url"]?.ToString();
+                album.ImageUrl = imageUrl;
+
+                var artist = item["artists"]?.AsArray();
+                var artistName = artist[0]["name"]?.ToString();
+                album.Artist = artistName;
+            }
+
+            return albumList;
+
+        }
+
     }
 }
