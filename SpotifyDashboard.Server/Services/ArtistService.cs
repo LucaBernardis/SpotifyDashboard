@@ -15,6 +15,12 @@ namespace SpotifyDashboard.Server.Services
             _httpClient = new HttpClient();
         }
 
+        /// <summary>
+        /// Method to get the data of the user's favourite artist trough
+        /// an http request to the ddicated spotify api address
+        /// </summary>
+        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
+        /// <returns> An Artist object with the usefull data about the favourite artist of the user </returns>
         public async Task<Artist> GetTopArtist(string token)
         {
 
@@ -52,6 +58,12 @@ namespace SpotifyDashboard.Server.Services
             return artist;
         }
 
+        /// <summary>
+        /// Method to get the most famous track of the user's favourite artist
+        /// </summary>
+        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
+        /// <param name="artistId"> The id of the artist you need to pass in the api call to get its related most famouse song </param>
+        /// <returns> A Track object with the artist's most famous track data </returns>
         public async Task<Track> GetArtistTopTrack(string token, string artistId)
         {
 
@@ -90,6 +102,12 @@ namespace SpotifyDashboard.Server.Services
             return topTrack;
         }
 
+        /// <summary>
+        /// Method to get all the albums the artist made or is part of
+        /// </summary>
+        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
+        /// <param name="artistId"> The id of the artist you need to pass in the api call to get all its related albums </param>
+        /// <returns> A list of the albums the artist made or is part of and the related usefull data </returns>
         public async Task<IEnumerable<Album>> GetAlbums(string token, string artistId)
        {
 

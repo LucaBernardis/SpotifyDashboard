@@ -15,6 +15,11 @@ namespace SpotifyDashboard.Server.Services
             _httpClient = new HttpClient();
         }
 
+        /// <summary>
+        /// Method to get all the data related to the current authenticated user
+        /// </summary>
+        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
+        /// <returns> A User object with the values usefull to the dashboard component </returns>
         public async Task<User> GetUserData(string token)
         {
 
@@ -44,6 +49,11 @@ namespace SpotifyDashboard.Server.Services
             return userData;
         }
 
+        /// <summary>
+        /// Method to get all the user's playlists and the related data
+        /// </summary>
+        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
+        /// <returns> A list of playlists with all their data </returns>
         public async Task<IEnumerable<Playlist>> GetUserPlaylist(string token)
         {
 
