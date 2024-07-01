@@ -10,7 +10,7 @@ namespace SpotifyDashboard.Test;
 public class SpotifyTests
 {
 
-    [Fact(DisplayName = "Ritorna i dati dell'utente")]
+    [Fact(DisplayName = "Ritorna i dati dell'utente corrente")]
     public async void GetTestUserData()
     {
         var mockHandler = new Mock<HttpMessageHandler>();
@@ -63,5 +63,32 @@ public class SpotifyTests
         Assert.NotNull(result);
         Assert.Equal(expectedArtist.ToString(), result.ToString());
     }
-    
+
+    [Fact(DisplayName = "Ritorna la miglior canzone dell' artista preferito dell'utente")]
+    public async void MigliorTracciaArtistaPreferito()
+    {
+        var mockHandler = new Mock<HttpMessageHandler>();
+        var httpClient = new HttpClient(mockHandler.Object);
+        var artistService = new ArtistService();
+
+        var expectedTrack = new Track("Ikka", 225099, "5Zv9GfbJv0MVntvTGF0IwG", "https://i.scdn.co/image/ab67616d0000b2732815e8a9065df815fe584baa", "Jagga Jatt");
+
+        var responseContent = new StringContent(JsonSerializer.Serialize(expectedTrack));
+        responseContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+        mockHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = responseContent
+            });
+
+        var token = "Bearer BQC2Z6RUlxrxPxt5PasWFQhI9jJiLJZwyCey6RDen1ytuqrA-3C1BB241aSBYWAlZ6wDv2PEb0lGFXkiEONrhLpzXHSfQatsLCBLjuKucqZuRU_7zWClpTBXJjThW0xiVFdwvY4d2u9_y5A-LgrlNGi6Vl5uAV1Hjbtx-FtZo-dcLgnX4RoVvdHFXGR-1wteJ03FQJ5xCTA3QRRbxu9XVUbAxqsj724E5P7LOA0W";
+        var id = "07iEy1AecUPVzfC2J2gCHR";
+
+        var result = await artistService.GetArtistTopTrack(token, id);
+
+        Assert.NotNull(result);
+        Assert.Equal(expectedTrack.ToString(), result.ToString());
+    }
 }
