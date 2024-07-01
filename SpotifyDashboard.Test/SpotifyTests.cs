@@ -25,22 +25,5 @@ public class SpotifyTests
     {
 
     }
-
-    [Fact(DisplayName = "Ritorna le ore di ascolto giornaliere")]
-    public void OreSettimanaliAscolto()
-    {
-
-    }
-
-    [Fact(DisplayName = "Ritorna le ore di ascolto giornaliero")]
-    public void OreGiornaliereAscolto()
-    {
-
-    }
-
-    [Fact(DisplayName = "Ritorna la canzone più ascoltata della settimana")]
-    public void TopCanzoneSettimana()
-    {
-
-    }
+    
 }
