@@ -156,5 +156,57 @@ namespace SpotifyDashboard.Server.Services
 
         }
 
+        /// <summary>
+        /// Method to retrieve spotify new releases, its a list of albums with all the related data, 
+        /// like total tracks, data about the artist and external links to the spotify page
+        /// </summary>
+        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
+        /// <returns> A list of album with name, image url and number of tracks </returns>
+        public async Task<IEnumerable<Album>> GetNewReleases(string token)
+        {
+            // General procedure to get the access token value
+            var split = token.Split(' ');
+            var auth = split[1];
+
+            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
+
+            // Http call to the spotify api address
+            using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/browse/new-releases");
+
+            response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var jObj = JsonNode.Parse(responseBody)?.AsObject();
+            var wrapper = jObj["albums"]?.AsObject();
+            var releases = wrapper["items"]?.AsArray();
+
+            var newReleases = JsonSerializer.Deserialize<List<Album>>(releases.ToJsonString());
+
+            for(int i = 0; i < newReleases.Count(); i++)
+            {
+                var newRelease = newReleases[i];
+                var item = releases[i];
+
+                // Assign to the SpotifyUrl property the value of the spotify external url
+                var extUrl = item["external_urls"]?.AsObject();
+                newRelease.SpotifyUrl = extUrl["spotify"]?.ToString();
+
+                // Assign to the ImaegeUrl the value of the image array url
+                var image = item["images"]?.AsArray();
+                var imageUrl = image[0]["url"]?.ToString();
+                newRelease.ImageUrl = imageUrl;
+
+                // Assign to the Artist property the value of the artist name
+                var artist = item["artists"]?.AsArray();
+                var artistName = artist[0]["name"]?.ToString();
+                newRelease.Artist = artistName;
+            }
+
+            return newReleases;
+
+        }
+
     }
 }

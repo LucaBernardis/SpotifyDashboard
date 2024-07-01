@@ -67,6 +67,8 @@ namespace SpotifyDashboard.Server.Services
 
         /// <summary>
         /// Method to get a list of recommended tracks basing the request on the favourite artist, his genre and his best song
+        /// ( U can choose any artist, song and genre. This implementation take this parameters 
+        /// just because its easier to manage with the other existing api calls )
         /// </summary>
         /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <param name="seedArtist"> The query parameter that containes the artist id value </param>
@@ -92,8 +94,8 @@ namespace SpotifyDashboard.Server.Services
             var responseBody = await response.Content.ReadAsStringAsync();
 
             // Retrieving the tracks from the json Object
-            var jObj = JsonNode.Parse(responseBody).AsObject();
-            var tracks = jObj["tracks"].AsArray();
+            var jObj = JsonNode.Parse(responseBody)?.AsObject();
+            var tracks = jObj["tracks"]?.AsArray();
 
             var recommend = JsonSerializer.Deserialize<List<Track>>(tracks);
 

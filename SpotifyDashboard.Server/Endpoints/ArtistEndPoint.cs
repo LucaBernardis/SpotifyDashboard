@@ -24,7 +24,21 @@ namespace SpotifyDashboard.Server.Endpoints
             // Retrieve the albums of the user's favourite artist
             group.MapGet("/getAlbums/{id}", GetArtistAlbums);
 
+            group.MapGet("/newReleases", GetNewReleases);
+
             return builder;
+        }
+
+        /// <summary>
+        /// Endpoint to call the GetNewReleases method
+        /// </summary>
+        /// <param name="token"> The access_token value </param>
+        /// <param name="data"> The ArtistService instance </param>
+        /// <returns></returns>
+        private static async Task<IEnumerable<Album>> GetNewReleases([FromHeader(Name = "Authorization")] string token, ArtistService data)
+        {
+            var newReleases = await data.GetNewReleases(token);
+            return newReleases;
         }
 
         /// <summary>
