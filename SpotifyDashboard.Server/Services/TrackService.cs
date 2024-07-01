@@ -5,30 +5,15 @@ using System.Text.Json.Nodes;
 
 namespace SpotifyDashboard.Server.Services
 {
-    public class TrackService
+    public partial class DashboardService
     {
-        private readonly HttpClient _httpClient;
-
-        public TrackService()
-        {
-            _httpClient = new HttpClient();
-        }
 
         /// <summary>
         /// Method to get the top tracks of the current authenticated user
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <returns> A list of the user's favourite tracks with their data </returns>
-        public async Task<IEnumerable<Track>> GetTopTenSongs(string token)
+        public async Task<IEnumerable<Track>> GetTopTenSongs()
         {
-
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
-
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync("v1/me/top/tracks");
 
@@ -70,23 +55,14 @@ namespace SpotifyDashboard.Server.Services
         /// ( U can choose any artist, song and genre. This implementation take this parameters 
         /// just because its easier to manage with the other existing api calls )
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <param name="seedArtist"> The query parameter that containes the artist id value </param>
         /// <param name="seedGenres"> The query parameter that contains the artist main genre </param>
         /// <param name="seedTrack"> The query parameter that contains the track id value </param>
         /// <returns></returns>
-        public async Task<IEnumerable<Track>> GetRecommendedSongs(string token, string seedArtist, string seedGenres, string seedTrack)
+        public async Task<IEnumerable<Track>> GetRecommendedSongs(string seedArtist, string seedGenres, string seedTrack)
         {
-
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
             // Building the query parameter with the values passed in the request call parameters
             var queryParams = $"seed_artists={seedArtist}&seed_genres={Uri.EscapeDataString(seedGenres)}&seed_tracks={seedTrack}";
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
 
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync($"v1/recommendations?{queryParams}");

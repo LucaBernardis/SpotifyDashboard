@@ -6,30 +6,15 @@ using System.Text.Json.Nodes;
 
 namespace SpotifyDashboard.Server.Services
 {
-    public class UserService
+    public partial class DashboardService
     {
-        private readonly HttpClient _httpClient;
-
-        public UserService()
-        {
-            _httpClient = new HttpClient();
-        }
 
         /// <summary>
         /// Method to get all the data related to the current authenticated user
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <returns> A User object with the values usefull to the dashboard component </returns>
-        public async Task<User> GetUserData(string token)
+        public async Task<User> GetUserData()
         {
-
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
-
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync("v1/me");
 
@@ -52,18 +37,9 @@ namespace SpotifyDashboard.Server.Services
         /// <summary>
         /// Method to get all the user's playlists and the related data
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <returns> A list of playlists with all their data </returns>
-        public async Task<IEnumerable<Playlist>> GetUserPlaylist(string token)
+        public async Task<IEnumerable<Playlist>> GetUserPlaylist()
         {
-
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
-
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync($"v1/me/playlists");
 

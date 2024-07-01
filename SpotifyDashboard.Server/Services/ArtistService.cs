@@ -11,7 +11,6 @@ namespace SpotifyDashboard.Server.Services
         /// Method to get the data of the user's favourite artist trough
         /// an http request to the ddicated spotify api address
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <returns> An Artist object with the usefull data about the favourite artist of the user </returns>
         public async Task<Artist> GetTopArtist()
         {
@@ -43,7 +42,6 @@ namespace SpotifyDashboard.Server.Services
         /// <summary>
         /// Method to get the most famous track of the user's favourite artist
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <param name="artistId"> The id of the artist you need to pass in the api call to get its related most famouse song </param>
         /// <returns> A Track object with the artist's most famous track data </returns>
         public async Task<Track> GetArtistTopTrack(string artistId)
@@ -79,19 +77,10 @@ namespace SpotifyDashboard.Server.Services
         /// <summary>
         /// Method to get all the albums the artist made or is part of
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <param name="artistId"> The id of the artist you need to pass in the api call to get all its related albums </param>
         /// <returns> A list of the albums the artist made or is part of and the related usefull data </returns>
-        public async Task<IEnumerable<Album>> GetAlbums(string token, string artistId)
+        public async Task<IEnumerable<Album>> GetAlbums(string artistId)
         {
-
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
-
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/artists/{artistId}/albums");
 
@@ -134,17 +123,9 @@ namespace SpotifyDashboard.Server.Services
         /// Method to retrieve spotify new releases, its a list of albums with all the related data, 
         /// like total tracks, data about the artist and external links to the spotify page
         /// </summary>
-        /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <returns> A list of album with name, image url and number of tracks </returns>
-        public async Task<IEnumerable<Album>> GetNewReleases(string token)
+        public async Task<IEnumerable<Album>> GetNewReleases()
         {
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
-
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/browse/new-releases");
 

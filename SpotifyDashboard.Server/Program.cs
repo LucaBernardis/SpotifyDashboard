@@ -12,11 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<DashboardService>();
-builder.Services.AddScoped<TrackService>();
-builder.Services.AddScoped<UserService>();
 builder.Services.AddCors();
 builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(
-    
+    // Passa i setting per la connessione al mongo client
     ));
 
 var app = builder.Build();

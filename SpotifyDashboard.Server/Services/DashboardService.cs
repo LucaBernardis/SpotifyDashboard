@@ -21,20 +21,39 @@ namespace SpotifyDashboard.Server.Services
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
 
-            var data = await GetTopArtist();
-            var data2 = await GetArtistTopTrack(data.Id);
 
+            // Artist service methods
+            var topArtist = await GetTopArtist();
+            var topArtistTopTrack = await GetArtistTopTrack(topArtist.Id);
+            var artistAlbums = await GetAlbums(topArtist.Id);
+            var newReleases = await GetNewReleases();
+
+            // User service methods
+            var user = await GetUserData();
+            var userPlaylists = await GetUserPlaylist();
+
+            // Track service methods
+            var topTracks = await GetTopTenSongs();
+            var recommended = await GetRecommendedSongs(topArtist.Id, topArtist.Genres, topArtistTopTrack.Id);
+
+            // Return object that group the returns of all the methods
             return new
-            {
+            {   
+                // Artist Objects
                 TopArtist = new
                 {
-                    Data = data.Name,
-                    ImageUrl = data.ImageUrl
+                    Data = topArtist.Name,
+                    Image = topArtist.ImageUrl
                 },
                 TopTrack = new
                 {
-                    Data = data2.Name,
-                    ImageUrl = data2.ImageUrl
+                    Data = topArtistTopTrack.Name,
+                    Image = topArtistTopTrack.ImageUrl,
+                    ArtistName = topArtistTopTrack.Artist
+                },
+                ArtistAlbums = new
+                {
+
                 }
             };
         }
