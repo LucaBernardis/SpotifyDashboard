@@ -1,3 +1,4 @@
+using MongoDB.Driver;
 using SpotifyDashboard.Server.Endpoints;
 using SpotifyDashboard.Server.Services;
 
@@ -10,10 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ArtistService>();
+builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<TrackService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddCors();
+builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(
+    
+    ));
 
 var app = builder.Build();
 
@@ -43,5 +47,14 @@ app.MapControllers();
 app.MapUserEndPoint();
 app.MapTrackEndPoint();
 app.MapArtistEndPoint();
+
+// Passo 5
+//var mongoclient = app.Services.GetService<IMongoClient>();
+//var tiles = mongoclient.GetDatabase("S").GetCollection("T");
+//if(tiles.Count() == 0)
+//{
+//    // insert
+//}
+
 
 app.Run();

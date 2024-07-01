@@ -5,45 +5,27 @@ using System.Text.Json;
 
 namespace SpotifyDashboard.Server.Services
 {
-    public class ArtistService
+    public partial class DashboardService
     {
-
-        private readonly HttpClient _httpClient;
-
-        public ArtistService()
-        {
-            _httpClient = new HttpClient();
-        }
-
         /// <summary>
         /// Method to get the data of the user's favourite artist trough
         /// an http request to the ddicated spotify api address
         /// </summary>
         /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <returns> An Artist object with the usefull data about the favourite artist of the user </returns>
-        public async Task<Artist> GetTopArtist(string token)
+        public async Task<Artist> GetTopArtist()
         {
-
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
-
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync("v1/me/top/artists?limit=1");
-
             response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
 
             var responseBody = await response.Content.ReadAsStringAsync();
-
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
             var items = jObj["items"]?.AsArray();
 
             var artistJson = items[0]?.ToJsonString();
             var artist = JsonSerializer.Deserialize<Artist>(artistJson);
-                
+
             // Assign to the Genres property the first value of the genres array
             var genres = items[0]["genres"]?.AsArray();
             artist.Genres = genres[0]?.ToString();
@@ -64,16 +46,8 @@ namespace SpotifyDashboard.Server.Services
         /// <param name="token"> The value of the access_token that you need to make any spotify call </param>
         /// <param name="artistId"> The id of the artist you need to pass in the api call to get its related most famouse song </param>
         /// <returns> A Track object with the artist's most famous track data </returns>
-        public async Task<Track> GetArtistTopTrack(string token, string artistId)
+        public async Task<Track> GetArtistTopTrack(string artistId)
         {
-
-            // General procedure to get the access token value
-            var split = token.Split(' ');
-            var auth = split[1];
-
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
-
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/artists/{artistId}/top-tracks");
 
@@ -109,7 +83,7 @@ namespace SpotifyDashboard.Server.Services
         /// <param name="artistId"> The id of the artist you need to pass in the api call to get all its related albums </param>
         /// <returns> A list of the albums the artist made or is part of and the related usefull data </returns>
         public async Task<IEnumerable<Album>> GetAlbums(string token, string artistId)
-       {
+        {
 
             // General procedure to get the access token value
             var split = token.Split(' ');
@@ -132,7 +106,7 @@ namespace SpotifyDashboard.Server.Services
             var albumList = JsonSerializer.Deserialize<List<Album>>(albums.ToJsonString());
 
             // For Each album object
-            for(int i = 0; i < albumList.Count; i++)
+            for (int i = 0; i < albumList.Count; i++)
             {
                 var album = albumList[i];
                 var item = albums[i];
@@ -184,7 +158,7 @@ namespace SpotifyDashboard.Server.Services
 
             var newReleases = JsonSerializer.Deserialize<List<Album>>(releases.ToJsonString());
 
-            for(int i = 0; i < newReleases.Count(); i++)
+            for (int i = 0; i < newReleases.Count(); i++)
             {
                 var newRelease = newReleases[i];
                 var item = releases[i];
