@@ -29,7 +29,7 @@ namespace SpotifyDashboard.Server.Services
             var userData = JsonSerializer.Deserialize<User>(responseBody);
 
             // Setting the imageUrl property to the image array url value
-            userData.Imageurl = images[0]["url"]?.ToString();
+            userData.ImageUrl = images[0]["url"]?.ToString();
 
             return userData;
         }

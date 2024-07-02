@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<DashboardService>();
 builder.Services.AddCors();
+builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(
     // Passa i setting per la connessione al mongo client
     ));
