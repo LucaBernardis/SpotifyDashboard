@@ -73,13 +73,15 @@ namespace SpotifyDashboard.Server.Services
                 {
                     Name = album.Name,
                     ImageUrl = album.ImageUrl,
-                    TotalTracks = album.TotalTracks
+                    TotalTracks = album.TotalTracks,
+                    SpotifyUrl = album.SpotifyUrl,
                 }),
                 NewReleases = newReleases.Select(release => new Album
                 {
                     Name = release.Name,
                     ImageUrl = release.ImageUrl,
-                    TotalTracks = release.TotalTracks
+                    TotalTracks = release.TotalTracks,
+                    SpotifyUrl = release.SpotifyUrl
                 }),
                 RecommendedTracks = recommendedTracks.Select(recommended => new Track
                 {
@@ -99,7 +101,7 @@ namespace SpotifyDashboard.Server.Services
                 {
                     Name = playlist.Name,
                     Owner = playlist.Owner,
-                    ImageUrl = playlist.ImageUrl,
+                    Image = playlist.Image,
                     SpotifyUrl = playlist.SpotifyUrl
                 })
             };

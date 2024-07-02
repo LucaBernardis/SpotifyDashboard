@@ -72,7 +72,7 @@ namespace SpotifyDashboard.Server.Services
 
                 // Assign to the ImageUrl property the value of the image url
                 var image = item["images"].AsArray()[0]?.AsObject();
-                playlist.ImageUrl = image["url"]?.ToString();
+                playlist.Image = image["url"]?.ToString();
 
             }
 

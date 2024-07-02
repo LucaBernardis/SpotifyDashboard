@@ -3,22 +3,25 @@
 namespace SpotifyDashboard.Server.Services
 {
     // Passo 3
-    //public class ConfigService
-    //{
-    //    private readonly IMongoClient _client;
+    public class ConfigService
+    {
+        private readonly IMongoClient _client;
 
-    //    public ConfigService(IMongoClient client)
-    //    {
-    //        _client = client;
-    //    }
+        public ConfigService(IMongoClient client)
+        {
+            _client = client;
+        }
 
-    //    public WidgetConfig GetDashboardConfig()
-    //    {
-    //        var list = _client.GetDatabase("Spotify")
-    //            .GetCollection<WidgetConfig>("Tiles")
-    //            .Find<WidgetConfig>();
 
-    //        return list;
-    //    }
-    //}
+        public async Task GetDashboardConfig()
+        {
+
+            throw new NotImplementedException();
+            //var list = _client.GetDatabase("Spotify")
+            //    .GetCollection("Tiles")
+            //    .Find();
+
+            //return list;
+        }
+    }
 }
