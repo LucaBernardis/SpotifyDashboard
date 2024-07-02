@@ -4,6 +4,7 @@ using SpotifyDashboard.Server.Models;
 using SpotifyDashboard.Server.Services;
 using System.Text.Json;
 using System.Net;
+using System.Text.Json.Nodes;
 
 namespace SpotifyDashboard.Test;
 
@@ -11,58 +12,84 @@ namespace SpotifyDashboard.Test;
 public class SpotifyTests
 {
 
-    // TODO: Rifare test usando Theory e InlineData
-    [Fact(DisplayName = "Ritorna i dati dell'utente corrente")]
-    public async void GetTestUserData()
+    [Theory(DisplayName = "Ritorna i dati dell'utente corrente")]
+    [InlineData("Bearer aaa","Bernardisluca")]
+    public async void GetTestUserData(string token, string username)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
         var httpClient = new HttpClient(mockHandler.Object);
-        var userService = new UserService();
 
-        var expectedUser = new User("Bernardisluca", "bernardisluca0@gmail.com", "5cpv82m9ahpcgwaru1e2w8fyi", "https://i.scdn.co/image/ab67757000003b8231d09a1c138277ee99cdfb12");
+        var expectedUser = new User(username, "aaa@gmail.com", "bbb", "https://ccc");
+        var image = new[]
+        {
+        new { url = "https://example.com/image.jpg" }
+    };
 
-        var responseContent = new StringContent(JsonSerializer.Serialize(expectedUser));
+        var responseContent = new StringContent(JsonSerializer.Serialize(new
+        {
+            display_name = username,
+            email = "aaa@gmail.com",
+            images = image
+        }));
         responseContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-        mockHandler.Protected()
-            .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-            .ReturnsAsync(new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = responseContent
-            });
-
-        var token = "Bearer BQC2Z6RUlxrxPxt5PasWFQhI9jJiLJZwyCey6RDen1ytuqrA-3C1BB241aSBYWAlZ6wDv2PEb0lGFXkiEONrhLpzXHSfQatsLCBLjuKucqZuRU_7zWClpTBXJjThW0xiVFdwvY4d2u9_y5A-LgrlNGi6Vl5uAV1Hjbtx-FtZo-dcLgnX4RoVvdHFXGR-1wteJ03FQJ5xCTA3QRRbxu9XVUbAxqsj724E5P7LOA0W";
-
-        var result = await userService.GetUserData(token);
-
-        Assert.NotNull(result);
-        Assert.Equal(expectedUser.ToString(), result.ToString());
-    }
-
-    [Theory(DisplayName = "Ritorna l'artista preferito dall'utente")]
-    [InlineData(
-        "Bearer BQC2Z6RUlxrxPxt5PasWFQhI9jJiLJZwyCey6RDen1ytuqrA-3C1BB241aSBYWAlZ6wDv2PEb0lGFXkiEONrhLpzXHSfQatsLCBLjuKucqZuRU_7zWClpTBXJjThW0xiVFdwvY4d2u9_y5A-LgrlNGi6Vl5uAV1Hjbtx-FtZo-dcLgnX4RoVvdHFXGR-1wteJ03FQJ5xCTA3QRRbxu9XVUbAxqsj724E5P7LOA0W",
-        "Ikka"
-    )]
-    public async void TestArtistaPreferito(string token, string favouriteArtist)
-    {
-        // Setup
-        var expectedArtist = new Artist("aaaa", "aaaaa", "https://blblabla", favouriteArtist);
-
-        var mockHandler = new Mock<HttpMessageHandler>();
-        var httpClient = new HttpClient(mockHandler.Object);
-
         mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>(
                 "SendAsync"
-                , ItExpr.Is<HttpRequestMessage>(req => req.RequestUri!.ToString().Contains("v1/me/top/artists?limit=1"))
-                //&& req.Headers.Contains("Authorization"))
+                , ItExpr.Is<HttpRequestMessage>(req => req.RequestUri!.ToString().Contains("v1/me"))
                 , ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonSerializer.Serialize(expectedArtist)),                
+                Content = responseContent,
             });
+
+        var userService = new DashboardService(httpClient);
+        var result = await userService.GetUserData();
+
+        Assert.NotNull(result);
+        Assert.Equal(expectedUser.DisplayName, result.DisplayName);
+    }
+
+    [Theory(DisplayName = "Ritorna l'artista preferito dall'utente")]
+    [InlineData("Bearer aaa","Ikka")]
+    public async void TestArtistaPreferito(string token, string favouriteArtist)
+    {
+        // Setup
+        var expectedArtist = new Artist("bbb", "aaa", "https://aaaaaaa", favouriteArtist);
+
+        var mockResponse = new JsonObject
+        {
+            ["items"] = new JsonArray
+        {
+            new JsonObject
+            {
+                ["name"] = favouriteArtist,
+                ["genres"] = new JsonArray { "Prog rock", "Grunge" },
+                ["images"] = new JsonArray
+                {
+                    new JsonObject
+                    {
+                        ["url"] = "https://aaaaaaa"
+                    }
+                }
+            }
+        }
+        };
+
+        var mockHandler = new Mock<HttpMessageHandler>();
+        var httpClient = new HttpClient(mockHandler.Object);
+
+        mockHandler.Protected()
+           .Setup<Task<HttpResponseMessage>>(
+                "SendAsync"
+               , ItExpr.Is<HttpRequestMessage>(req => req.RequestUri!.ToString().Contains("v1/me/top/artists?limit=1"))
+               //&& req.Headers.Contains("Authorization"))
+               , ItExpr.IsAny<CancellationToken>())
+           .ReturnsAsync(new HttpResponseMessage
+           {
+               StatusCode = HttpStatusCode.OK,
+               Content = new StringContent(mockResponse.ToJsonString()),
+           });
 
         // Act
         var artistService = new DashboardService(httpClient);
@@ -74,31 +101,62 @@ public class SpotifyTests
     }
 
     // TODO: Rifare test usando Theory e InlineData
-    [Fact(DisplayName = "Ritorna la miglior canzone dell' artista preferito dell'utente")]
-    public async void MigliorTracciaArtistaPreferito()
+    [Theory(DisplayName = "Ritorna la miglior canzone dell' artista preferito dell'utente")]
+    [InlineData("Bearer aaa", "NomeTraccia", "aaabbbccc")]
+
+    public async void MigliorTracciaArtistaPreferito(string token, string trackName, string id)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
         var httpClient = new HttpClient(mockHandler.Object);
-        var artistService = new DashboardService();
 
-        var expectedTrack = new Track("Ikka", 225099, "5Zv9GfbJv0MVntvTGF0IwG", "https://i.scdn.co/image/ab67616d0000b2732815e8a9065df815fe584baa", "Jagga Jatt");
+        var expectedTrack = new Track("aaa", 000, "bbb", "https://ccc", trackName);
 
-        var responseContent = new StringContent(JsonSerializer.Serialize(expectedTrack));
+        var mockResponse = new JsonObject
+        {
+            ["tracks"] = new JsonArray
+        {
+            new JsonObject
+            {
+                ["name"] = trackName,
+                ["album"] = new JsonObject
+                {
+                    ["images"] = new JsonArray
+                    {
+                        new JsonObject
+                        {
+                            ["url"] = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228"
+                        }
+                    }
+                },
+                ["artists"] = new JsonArray
+                {
+                    new JsonObject
+                    {
+                        ["name"] = trackName
+                    }
+                }
+            }
+        }
+        };
+
+        var responseContent = new StringContent(mockResponse.ToJsonString());
         responseContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
         mockHandler.Protected()
-            .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+            .Setup<Task<HttpResponseMessage>>(
+                "SendAsync"
+                , ItExpr.Is<HttpRequestMessage>(req => req.RequestUri!.ToString().Contains($"/top-tracks"))
+                , ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = responseContent
+                Content = responseContent,
             });
 
-        var token = "Bearer BQC2Z6RUlxrxPxt5PasWFQhI9jJiLJZwyCey6RDen1ytuqrA-3C1BB241aSBYWAlZ6wDv2PEb0lGFXkiEONrhLpzXHSfQatsLCBLjuKucqZuRU_7zWClpTBXJjThW0xiVFdwvY4d2u9_y5A-LgrlNGi6Vl5uAV1Hjbtx-FtZo-dcLgnX4RoVvdHFXGR-1wteJ03FQJ5xCTA3QRRbxu9XVUbAxqsj724E5P7LOA0W";
-        var id = "07iEy1AecUPVzfC2J2gCHR";
-
-        var result = await artistService.GetAlbums(token, id);
+        var artistService = new DashboardService(httpClient);
+        var result = await artistService.GetArtistTopTrack(id);
 
         Assert.NotNull(result);
-        Assert.Equal(expectedTrack.ToString(), result.ToString());
+        Assert.Equal(expectedTrack.Name, result.Name);
     }
 }

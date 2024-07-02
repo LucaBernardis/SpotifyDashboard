@@ -67,7 +67,7 @@ namespace SpotifyDashboard.Server.Services
             track[0].Name = tracks[0]["name"]?.ToString();
 
             // Assign to the artist property the value of the first artist name
-            var artist = tracks[0]["artists"].AsArray();
+            var artist = tracks[0]["artists"]?.AsArray();
             track[0].Artist = artist[0]["name"]?.ToString();
 
             var topTrack = track[0];

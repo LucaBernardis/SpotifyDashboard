@@ -25,16 +25,16 @@ namespace SpotifyDashboard.Server.Services
             // Artist service methods
             var topArtist = await GetTopArtist();
             var topArtistTopTrack = await GetArtistTopTrack(topArtist.Id);
-            var artistAlbums = await GetAlbums(topArtist.Id);
-            var newReleases = await GetNewReleases();
+            var artistAlbums = await GetAlbums(topArtist.Id); // IEnumerable
+            var newReleases = await GetNewReleases(); // IEnumerable
 
             // User service methods
             var user = await GetUserData();
-            var userPlaylists = await GetUserPlaylist();
+            var userPlaylists = await GetUserPlaylist(); // IEnumerable
 
             // Track service methods
-            var topTracks = await GetTopTenSongs();
-            var recommended = await GetRecommendedSongs(topArtist.Id, topArtist.Genres, topArtistTopTrack.Id);
+            var topTracks = await GetTopTenSongs(); // IEnumerable
+            var recommended = await GetRecommendedSongs(topArtist.Id, topArtist.Genres, topArtistTopTrack.Id); // IEnumerable
 
             // Return object that group the returns of all the methods
             return new
@@ -52,6 +52,28 @@ namespace SpotifyDashboard.Server.Services
                     ArtistName = topArtistTopTrack.Artist
                 },
                 ArtistAlbums = new
+                {
+                    
+                },
+                NewReleases = new
+                {
+
+                },
+                User = new
+                {
+                    Name = user.DisplayName,
+                    Image = user.Imageurl,
+                    UserId = user.Id,
+                },
+                UserPlaylist = new
+                {
+
+                },
+                TopTracks = new
+                {
+
+                },
+                Recommended = new
                 {
 
                 }
