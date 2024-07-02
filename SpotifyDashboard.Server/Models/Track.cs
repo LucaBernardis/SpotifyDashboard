@@ -24,5 +24,19 @@ namespace SpotifyDashboard.Server.Models
         [JsonPropertyName("spotifyUrl")]
         public string? SpotifyUrl { get; set; }
 
+
+        public Track()
+        {
+            
+        }
+
+        public Track(string artist, int duration, string id, string image, string name)
+        {
+            Artist = artist;
+            Duration = duration;
+            Id = id;
+            ImageUrl = image;
+            Name = name;
+        }
     }
 }

@@ -24,7 +24,21 @@ namespace SpotifyDashboard.Server.Endpoints
             // Retrieve the albums of the user's favourite artist
             group.MapGet("/getAlbums/{id}", GetArtistAlbums);
 
+            group.MapGet("/newReleases", GetNewReleases);
+
             return builder;
+        }
+
+        /// <summary>
+        /// Endpoint to call the GetNewReleases method
+        /// </summary>
+        /// <param name="token"> The access_token value </param>
+        /// <param name="data"> The ArtistService instance </param>
+        /// <returns></returns>
+        private static async Task<IEnumerable<Album>> GetNewReleases([FromHeader(Name = "Authorization")] string token, DashboardService data)
+        {
+            var newReleases = await data.GetNewReleases();
+            return newReleases;
         }
 
         /// <summary>
@@ -34,9 +48,9 @@ namespace SpotifyDashboard.Server.Endpoints
         /// <param name="id"> The value of the artist id </param>
         /// <param name="data"> The ArtistService instance</param>
         /// <returns> A list of albums </returns>
-        private static async Task<IEnumerable<Album>> GetArtistAlbums([FromHeader(Name = "Authorization")] string token, [FromRoute] string id, ArtistService data)
+        private static async Task<IEnumerable<Album>> GetArtistAlbums([FromHeader(Name = "Authorization")] string token, [FromRoute] string id, DashboardService data)
         {
-            var albums = await data.GetAlbums(token, id);
+            var albums = await data.GetAlbums(id);
             return albums;
         }
 
@@ -47,9 +61,9 @@ namespace SpotifyDashboard.Server.Endpoints
         /// <param name="id"> The value of the artist id </param>
         /// <param name="data"> The ArtistService instance</param>
         /// <returns> The artist top track </returns>
-        private static async Task<Track> GetTopArtistTopSong([FromHeader(Name = "Authorization")] string token, [FromRoute] string id, ArtistService data)
+        private static async Task<Track> GetTopArtistTopSong([FromHeader(Name = "Authorization")] string token, [FromRoute] string id, DashboardService data)
         {
-            var topTrack = await data.GetArtistTopTrack(token, id);
+            var topTrack = await data.GetArtistTopTrack(id);
             return topTrack;
         }
 
@@ -59,9 +73,9 @@ namespace SpotifyDashboard.Server.Endpoints
         /// <param name="token"> The access_token value </param>
         /// <param name="data"> The ArtistService instance</param>
         /// <returns> The user's favourite artist </returns>
-        private static async Task<Artist> GetUserTopArtist([FromHeader(Name = "Authorization")] string token, ArtistService data)
+        private static async Task<Artist> GetUserTopArtist([FromHeader(Name = "Authorization")] string token, DashboardService data)
         {
-            var topArtist = await data.GetTopArtist(token);
+            var topArtist = await data.GetTopArtist();
             return topArtist;
         }
     }
