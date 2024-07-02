@@ -43,7 +43,7 @@ public class SpotifyTests
                 Content = responseContent,
             });
 
-        var userService = new DashboardService(httpClient);
+        var userService = new DashboardService();
         var result = await userService.GetUserData();
 
         Assert.NotNull(result);
@@ -92,7 +92,7 @@ public class SpotifyTests
            });
 
         // Act
-        var artistService = new DashboardService(httpClient);
+        var artistService = new DashboardService();
         var result = await artistService.GetTopArtist();
 
         // Verify
@@ -153,7 +153,7 @@ public class SpotifyTests
                 Content = responseContent,
             });
 
-        var artistService = new DashboardService(httpClient);
+        var artistService = new DashboardService();
         var result = await artistService.GetArtistTopTrack(id);
 
         Assert.NotNull(result);

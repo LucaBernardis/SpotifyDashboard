@@ -42,6 +42,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Mapping created Enpoints
+app.MapDashboardEndPoint();
 app.MapUserEndPoint();
 app.MapTrackEndPoint();
 app.MapArtistEndPoint();

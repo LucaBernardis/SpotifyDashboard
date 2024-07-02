@@ -7,10 +7,9 @@ namespace SpotifyDashboard.Server.Services
     {
         private readonly HttpClient _httpClient;
 
-        public DashboardService(HttpClient httpClient = null)
+        public DashboardService()
         {
-            _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
+            _httpClient = new HttpClient();
         }
 
         public async Task<object> GetDashboardData(string token)
@@ -18,7 +17,7 @@ namespace SpotifyDashboard.Server.Services
             // General procedure to get the access token value
             var split = token.Split(' ');
             var auth = split[1];
-
+            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
 
 
@@ -42,40 +41,40 @@ namespace SpotifyDashboard.Server.Services
                 // Artist Objects
                 TopArtist = new
                 {
-                    Data = topArtist.Name,
+                    Name = topArtist.Name,
                     Image = topArtist.ImageUrl
                 },
-                TopTrack = new
+                ArtistTopTrack = new
                 {
-                    Data = topArtistTopTrack.Name,
+                    Name = topArtistTopTrack.Name,
                     Image = topArtistTopTrack.ImageUrl,
                     ArtistName = topArtistTopTrack.Artist
                 },
                 ArtistAlbums = new
                 {
-                    
+                    // Gestisci IEnumerable
                 },
                 NewReleases = new
                 {
-
+                    // Gestisci IEnumerable
                 },
                 User = new
                 {
                     Name = user.DisplayName,
                     Image = user.Imageurl,
-                    UserId = user.Id,
+                    Id = user.Id,
                 },
                 UserPlaylist = new
                 {
-
+                    // Gestisci IEnumerable
                 },
-                TopTracks = new
+                UserTopTracks = new
                 {
-
+                    // Gestisci IEnumerable
                 },
                 Recommended = new
                 {
-
+                    // Gestisci IEnumerable
                 }
             };
         }
