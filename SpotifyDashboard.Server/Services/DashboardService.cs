@@ -12,6 +12,8 @@ namespace SpotifyDashboard.Server.Services
         public DashboardService(HttpClient httpClient)
         {
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
+
         }
 
         /// <summary>
@@ -29,7 +31,6 @@ namespace SpotifyDashboard.Server.Services
             // General procedure to get the access token value
             var split = token.Split(' ');
             var auth = split[1];
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
 
 
