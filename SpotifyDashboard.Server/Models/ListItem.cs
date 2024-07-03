@@ -1,7 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using ThirdParty.Json.LitJson;
-
-namespace SpotifyDashboard.Server.Models
+﻿namespace SpotifyDashboard.Server.Models
 {
     public class ListItem
     {
