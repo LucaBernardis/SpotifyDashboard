@@ -17,5 +17,16 @@ namespace SpotifyDashboard.Server.Models.Dashboard
 
         [BsonElement("widgetLabel")]
         public string? WidgetLabel { get; set; }
+
+        [BsonElement("type")]
+        public string? Type { get; set; }
+
+        public WidgetComponent(string? id, string? widgetName, string? widgetproperty, string? widgetLabel)
+        {
+            Id = id;
+            WidgetName = widgetName;
+            Widgetproperty = widgetproperty;
+            WidgetLabel = widgetLabel;
+        }
     }
 }
