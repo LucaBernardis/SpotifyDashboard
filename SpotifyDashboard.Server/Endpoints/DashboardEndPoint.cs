@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using SpotifyDashboard.Server.Models.Dashboard;
 using SpotifyDashboard.Server.Services;
 
 namespace SpotifyDashboard.Server.Endpoints
@@ -20,12 +21,13 @@ namespace SpotifyDashboard.Server.Endpoints
             return builder;
         }
 
-        private static async Task GetDashboardConfigAsync(ConfigService data)
+        private static async Task<IEnumerable<WidgetComponent>> GetDashboardConfigAsync(ConfigService data)
         {
-            throw new NotImplementedException();
+            var config = await data.GetDashboardConfig();
+            return config;
         }
 
-        private static async Task<object> GetDashboardDataAsync([FromHeader(Name = "Authorization")] string token, DashboardService data)
+        private static async Task<Dashboard> GetDashboardDataAsync([FromHeader(Name = "Authorization")] string token, DashboardService data)
         {
             var dashboard = await data.GetDashboardData(token);
             return dashboard;

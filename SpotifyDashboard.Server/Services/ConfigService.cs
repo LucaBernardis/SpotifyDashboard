@@ -1,4 +1,6 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using SpotifyDashboard.Server.Models.Dashboard;
 
 namespace SpotifyDashboard.Server.Services
 {
@@ -13,15 +15,24 @@ namespace SpotifyDashboard.Server.Services
         }
 
 
-        public async Task GetDashboardConfig()
+        public async Task<List<WidgetComponent>> GetDashboardConfig()
         {
+            var db = _client.GetDatabase("Spotify");
+            var collection = db.GetCollection<WidgetComponent>("Tiles");
+            //var filter = Builders<WidgetComponent>.Filter.Eq("name", "user-data");
+            var task = await collection.FindAsync(new BsonDocument());
 
-            throw new NotImplementedException();
-            //var list = _client.GetDatabase("Spotify")
-            //    .GetCollection("Tiles")
-            //    .Find();
+            var list = new List<WidgetComponent>();
 
-            //return list;
+            while (await task.MoveNextAsync())
+            {
+                foreach (var document in task.Current)
+                {
+                    list.Add(document);
+                }
+            }
+
+            return list;
         }
     }
 }

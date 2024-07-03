@@ -15,7 +15,7 @@ builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<ConfigService>();
 builder.Services.AddCors();
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient("mongo://localhost:27017/"));
+builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient("mongodb://localhost:27017/"));
 
 var app = builder.Build();
 
