@@ -5,6 +5,8 @@ using SpotifyDashboard.Server.Services;
 using System.Text.Json;
 using System.Net;
 using System.Text.Json.Nodes;
+using SpotifyDashboard.Server.Models.Dashboard;
+using MongoDB.Driver;
 
 namespace SpotifyDashboard.Test;
 
@@ -49,6 +51,7 @@ public class SpotifyTests
         Assert.NotNull(result);
         Assert.Equal(expectedUser.DisplayName, result.DisplayName);
     }
+
 
     [Theory(DisplayName = "Ritorna l'artista preferito dall'utente")]
     [InlineData("Bearer aaa","Ikka")]
@@ -99,10 +102,9 @@ public class SpotifyTests
         Assert.Equal(expectedArtist.Name, result.Name);
     }
 
-    // TODO: Rifare test usando Theory e InlineData
+
     [Theory(DisplayName = "Ritorna la miglior canzone dell' artista preferito dell'utente")]
     [InlineData("Bearer aaa", "NomeTraccia", "aaabbbccc")]
-
     public async void MigliorTracciaArtistaPreferito(string token, string trackName, string id)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
@@ -157,5 +159,21 @@ public class SpotifyTests
 
         Assert.NotNull(result);
         Assert.Equal(expectedTrack.Name, result.Name);
+    }
+
+
+    [Theory(DisplayName = "Ritorna i dati delle tile la dashboard")]
+    [InlineData("user-data")]
+    public async void TornaDatiTileMongo(string widgetName)
+    {
+
+        var mongoClient = new MongoClient();
+        // Set
+        var expected = new WidgetComponent("aaa", widgetName, "bbb", "ccc");
+        var service = new ConfigService(mongoClient);
+
+        var result = await service.GetDashboardConfig();
+
+        Assert.Equal(result.FirstOrDefault().WidgetName, expected.WidgetName);
     }
 }
