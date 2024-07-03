@@ -83,7 +83,6 @@ public class SpotifyTests
            .Setup<Task<HttpResponseMessage>>(
                 "SendAsync"
                , ItExpr.Is<HttpRequestMessage>(req => req.RequestUri!.ToString().Contains("v1/me/top/artists?limit=1"))
-               //&& req.Headers.Contains("Authorization"))
                , ItExpr.IsAny<CancellationToken>())
            .ReturnsAsync(new HttpResponseMessage
            {
