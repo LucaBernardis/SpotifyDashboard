@@ -7,10 +7,10 @@
         public Artist TopArtist { get; set; }
         public Track ArtistTopTrack { get; set; }
 
-        public IEnumerable<Album> ArtistAlbums { get; set; }
-        public IEnumerable<Album> NewReleases { get; set; }
-        public IEnumerable<Track> RecommendedTracks { get; set; }
-        public IEnumerable<Track> UserTopTracks { get; set; }
-        public IEnumerable<Playlist> UserPlaylists { get; set; }
+        public IEnumerable<ListItem> ArtistAlbums { get; set; }
+        public IEnumerable<ListItem> NewReleases { get; set; }
+        public IEnumerable<ListItem> RecommendedTracks { get; set; }
+        public IEnumerable<ListItem> UserTopTracks { get; set; }
+        public IEnumerable<ListItem> UserPlaylists { get; set; }
     }
 }

@@ -51,8 +51,8 @@ app.MapArtistEndPoint();
 
 // Passo 5
 //var mongoclient = app.Services.GetService<IMongoClient>();
-//var tiles = mongoclient.GetDatabase("S").GetCollection("T");
-//if(tiles.Count() == 0)
+//var tiles = mongoclient.GetDatabase("Spotify").GetCollection("Tiles");
+//if (tiles.Count() == 0)
 //{
 //    // insert
 //}

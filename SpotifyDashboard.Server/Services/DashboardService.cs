@@ -71,38 +71,38 @@ namespace SpotifyDashboard.Server.Services
                     Artist = topArtistTopTrack.Artist
                 },
 
-                ArtistAlbums = artistAlbums.Select(album => new Album
+                ArtistAlbums = artistAlbums.Select(album => new ListItem
                 {
-                    Name = album.Name,
-                    ImageUrl = album.ImageUrl,
-                    TotalTracks = album.TotalTracks,
-                    SpotifyUrl = album.SpotifyUrl,
+                    MainText = album.Name,
+                    NumericText = album.TotalTracks,
+                    Image = album.ImageUrl,
+                    SpotifyUrl = album.SpotifyUrl
                 }),
-                NewReleases = newReleases.Select(release => new Album
+                NewReleases = newReleases.Select(release => new ListItem
                 {
-                    Name = release.Name,
-                    ImageUrl = release.ImageUrl,
-                    TotalTracks = release.TotalTracks,
+                    MainText = release.Name,
+                    NumericText = release.TotalTracks,
+                    Image = release.ImageUrl,
                     SpotifyUrl = release.SpotifyUrl
                 }),
-                RecommendedTracks = recommendedTracks.Select(recommended => new Track
+                RecommendedTracks = recommendedTracks.Select(recommended => new ListItem
                 {
-                    Name = recommended.Name,
-                    ImageUrl = recommended.ImageUrl,
-                    Artist = recommended.Artist,
+                    MainText = recommended.Name,
+                    Image = recommended.ImageUrl,
+                    SecondText = recommended.Artist,
                     SpotifyUrl = recommended.SpotifyUrl
                 }),
-                UserTopTracks = userTopTracks.Select(track => new Track
+                UserTopTracks = userTopTracks.Select(track => new ListItem
                 {
-                    Name = track.Name,
-                    ImageUrl = track.ImageUrl,
-                    Artist = track.Artist,
-                    Duration = track.Duration
+                    MainText = track.Name,
+                    Image = track.ImageUrl,
+                    SecondText = track.Artist,
+                    NumericText = track.Duration
                 }),
-                UserPlaylists = userPlaylists.Select(playlist => new Playlist
+                UserPlaylists = userPlaylists.Select(playlist => new ListItem
                 {
-                    Name = playlist.Name,
-                    Owner = playlist.Owner,
+                    MainText = playlist.Name,
+                    SecondText = playlist.Owner,
                     Image = playlist.Image,
                     SpotifyUrl = playlist.SpotifyUrl
                 })
