@@ -1,4 +1,5 @@
 ﻿using SpotifyDashboard.Server.Models;
+using SpotifyDashboard.Server.Models.Dashboard;
 using System.Net.Http.Headers;
 
 namespace SpotifyDashboard.Server.Services
@@ -23,7 +24,7 @@ namespace SpotifyDashboard.Server.Services
         /// from the angular page, without it you are unauthorized to make any api call
         /// </param>
         /// <returns> An object that contains the result of all the usefull data from the other sevrices methods </returns>
-        public async Task<object> GetDashboardData(string token)
+        public async Task<Dashboard> GetDashboardData(string token)
         {
             // General procedure to get the access token value
             var split = token.Split(' ');
@@ -47,7 +48,7 @@ namespace SpotifyDashboard.Server.Services
             var userTopTracks = await GetTopTenSongs(); // IEnumerable
             var recommendedTracks = await GetRecommendedSongs(topArtist.Id, topArtist.Genres, topArtistTopTrack.Id); // IEnumerable
 
-            // Return object that group the returns of all the methods
+            // Return Dashboard object that groups the returns of all the methods with the data i ned
             return new Dashboard
             {
                 User = new User

@@ -1,4 +1,4 @@
-﻿namespace SpotifyDashboard.Server.Models
+﻿namespace SpotifyDashboard.Server.Models.Dashboard
 {
     public class Dashboard
     {
