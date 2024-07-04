@@ -45,9 +45,10 @@ app.MapControllers();
 app.MapDashboardEndPoint(); // Quest'unico endpoint gestisce tutte le chiamate ai metodi di cui si ha bisogno per far si che la dashboard funzioni
 
 // Ora come ora possono essere tolti questi endpoint ed i relativi servizi da front end
-app.MapUserEndPoint();
-app.MapTrackEndPoint();
-app.MapArtistEndPoint();
+
+//app.MapUserEndPoint();
+//app.MapTrackEndPoint();
+//app.MapArtistEndPoint();
 
 // Passo 5
 //var mongoclient = app.Services.GetService<IMongoClient>();
