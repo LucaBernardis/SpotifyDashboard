@@ -62,7 +62,7 @@ The configuration data are used to check if the widget have the correct key-pair
 
 In my case, the key pair will be widgetName - type.
 
-The widgetLabel till be used as a title for the widget.
+The widgetLabel will be used as a title for the widget.
 
 #### Returns a list of WidgetComponents 
 The mongo Output look somethig like this:
