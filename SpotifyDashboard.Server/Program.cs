@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using SpotifyDashboard.Server.Endpoints;
+using SpotifyDashboard.Server.Models.Dashboard;
 using SpotifyDashboard.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,12 +46,12 @@ app.MapControllers();
 app.MapDashboardEndPoint(); // Quest'unico endpoint gestisce tutte le chiamate ai metodi di cui si ha bisogno per far si che la dashboard funzioni
 
 // Passo 5
-//var mongoclient = app.Services.GetService<IMongoClient>();
-//var tiles = mongoclient.GetDatabase("Spotify").GetCollection("Tiles");
-//if (tiles.Count() == 0)
-//{
-//    // insert
-//}
+var mongoclient = app.Services.GetService<IMongoClient>();
+var tiles = mongoclient.GetDatabase("Spotify").GetCollection<WidgetComponent>("Tiles");
+if(tiles == null)
+{
+    // inserisci su db i dati dei widget
+}
 
 
 app.Run();

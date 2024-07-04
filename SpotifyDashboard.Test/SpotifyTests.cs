@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.Json.Nodes;
 using SpotifyDashboard.Server.Models.Dashboard;
 using MongoDB.Driver;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpotifyDashboard.Test;
 
@@ -207,5 +208,12 @@ public class SpotifyTests
         // Assert
         Assert.NotNull(result);
         Assert.True(result.Any(w => w.WidgetName == widgetComponentName));
+    }
+
+
+    [Fact(DisplayName = "Inserisci su db se lista resistuita è vuota")]
+    public async Task InserisciDatiWidgetSuDB()
+    {
+        // chiamare GetDashboardConfig, se lista vuota allora inserisci su db i dati dei widget
     }
 }
