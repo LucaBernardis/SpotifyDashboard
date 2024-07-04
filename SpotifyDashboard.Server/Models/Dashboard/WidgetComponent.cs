@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace SpotifyDashboard.Server.Models.Dashboard
 {
+    // Class to represent the single tile of the dashboard and his properties
     public class WidgetComponent
     {
         [BsonElement("_id")]
@@ -21,9 +22,14 @@ namespace SpotifyDashboard.Server.Models.Dashboard
         [BsonElement("type")]
         public string? Type { get; set; }
 
-        public WidgetComponent(string? id, string? widgetName, string? widgetproperty, string? widgetLabel)
+
+
+        public WidgetComponent(string name)
         {
-            Id = id;
+            WidgetName = name;
+        }
+        public WidgetComponent( string? widgetName, string? widgetproperty, string? widgetLabel)
+        {
             WidgetName = widgetName;
             Widgetproperty = widgetproperty;
             WidgetLabel = widgetLabel;

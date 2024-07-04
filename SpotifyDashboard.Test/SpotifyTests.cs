@@ -14,6 +14,8 @@ namespace SpotifyDashboard.Test;
 public class SpotifyTests
 {
 
+    // Test per chiamte api a spotify
+    
     [Theory(DisplayName = "Ritorna i dati dell'utente corrente")]
     [InlineData("Bearer aaa","Bernardisluca")]
     public async void GetTestUserData(string token, string username)
@@ -162,18 +164,48 @@ public class SpotifyTests
     }
 
 
-    [Theory(DisplayName = "Ritorna i dati delle tile la dashboard")]
-    [InlineData("user-data")]
-    public async void TornaDatiTileMongo(string widgetName)
+    // Test per mongodb
+
+    [Theory(DisplayName = "Torna i dati di mongo")]
+    [InlineData("WidgetComponent1")]
+    public async Task Test_GetDashboardConfig(string widgetComponentName)
     {
+        // Arrange
+        var mockCollection = new Mock<IMongoCollection<WidgetComponent>>();
+        var mockCursor = new Mock<IAsyncCursor<WidgetComponent>>();
+        var mockClient = new Mock<IMongoClient>();
+        var mockDatabase = new Mock<IMongoDatabase>();
 
-        var mongoClient = new MongoClient();
-        // Set
-        var expected = new WidgetComponent("aaa", widgetName, "bbb", "ccc");
-        var service = new ConfigService(mongoClient);
+        // Create some test data (replace with your actual data)
+        var testData = new List<WidgetComponent>
+        {
+            new WidgetComponent (widgetComponentName),
+        };
 
+        // Set up the mock cursor
+        int callCount = 0;
+        mockCursor.Setup(_ => _.Current).Returns(testData);
+        mockCursor.Setup(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+                   .ReturnsAsync(() => callCount++ < testData.Count);
+
+        // Set up the mock collection
+        mockCollection.Setup(c => c.FindAsync(It.IsAny<FilterDefinition<WidgetComponent>>(), It.IsAny<FindOptions<WidgetComponent, WidgetComponent>>(), It.IsAny<CancellationToken>()))
+               .ReturnsAsync(mockCursor.Object);
+
+        // Set up the mock database
+        mockDatabase.Setup(d => d.GetCollection<WidgetComponent>("Tiles", null)).Returns(mockCollection.Object);
+
+        // Set up the mock client
+        mockClient.Setup(c => c.GetDatabase("Spotify", null)).Returns(mockDatabase.Object);
+
+        // Create an instance of the class under test
+        var service = new ConfigService(mockClient.Object); // Replace "YourClass" with the actual class name
+
+        // Act
         var result = await service.GetDashboardConfig();
 
-        Assert.Equal(result.FirstOrDefault().WidgetName, expected.WidgetName);
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.Any(w => w.WidgetName == widgetComponentName));
     }
 }
