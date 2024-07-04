@@ -33,8 +33,6 @@ namespace SpotifyDashboard.Server.Services
             var auth = split[1];
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth);
 
-
-
             // Artist service methods
             var topArtist = await GetTopArtist();
             var topArtistTopTrack = await GetArtistTopTrack(topArtist.Id);

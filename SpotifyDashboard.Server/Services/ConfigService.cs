@@ -15,14 +15,15 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Method to retrieve all the about about the dashboard config saved on mongodb
+        /// Method to retrieve all the data about the dashboard configuration saved on mongodb
         /// </summary>
-        /// <returns> A list of objects containing all the properties of the widget element of the collection </returns>
+        /// <returns> A list of objects containing all the properties of the widget elements of the collection </returns>
         public async Task<List<WidgetComponent>> GetDashboardConfig()
         {
             var db = _client.GetDatabase("Spotify");
             var collection = db.GetCollection<WidgetComponent>("Tiles");
-            var task = await collection.FindAsync(new BsonDocument());
+
+            var task = await collection.FindAsync(new BsonDocument()); // The query to mongodb
 
             var list = new List<WidgetComponent>();
 
