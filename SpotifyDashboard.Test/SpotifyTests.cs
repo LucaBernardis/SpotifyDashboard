@@ -166,7 +166,7 @@ public class SpotifyTests
 
     // Test per mongodb
 
-    [Theory(DisplayName = "Torna i dati di mongo")]
+    [Theory(DisplayName = "Ritorna la risponsa con dati mock per il client mongo")]
     [InlineData("WidgetComponent1")]
     public async Task Test_GetDashboardConfig(string widgetComponentName)
     {
