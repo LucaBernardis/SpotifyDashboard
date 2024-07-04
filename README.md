@@ -47,10 +47,9 @@ In this version of the projects all the data are retrieved with a single api cal
 | :-------- | :------- | :------------------------- |
 | `access_token` | `string` | **Required**. Your access_token |
 
-Without the access_token parameter you wont be able to make any api call to the api, so make sure the provided token is in the right format and it's not expired
-
-
 #### Return an object with all the needed properties of the widgets.
+
+Without the access_token parameter you wont be able to make any api call to the api, so make sure the provided token is in the right format and it's not expired. Here is the link to the [Implicit Grant Flow](https://developer.spotify.com/documentation/web-api/tutorials/implicit-flow) i used that explains to you the workflow and how to use his response.
 
 ___
 
@@ -65,6 +64,7 @@ In my case, the key pair will be widgetName - type.
 
 The widgetLabel till be used as a title for the widget.
 
+#### Returns a list of WidgetComponents 
 The mongo Output look somethig like this:
 
 `````
@@ -79,7 +79,7 @@ The mongo Output look somethig like this:
 }
 `````
 
-#### Returns a list of WidgetComponents 
+
 
 
 
