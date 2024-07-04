@@ -27,7 +27,7 @@ The widgets that this dashboard contains are the following:
 
 #### Authentication Method
 
-On the [Spotify-Api Authorization Documentation](https://developer.spotify.com/documentation/web-api) you will find four different types of OAuth flow to follow. Choose wisely wich authorization flow to use because they all have some differences between one another. This application uses the Implicit Grant Authorization flow, it may not be the best but it works for the calls i need.
+On the [Spotify-Api Authorization Documentation](https://developer.spotify.com/documentation/web-api/concepts/authorization) you will find four different types of OAuth flow to follow. Choose wisely wich authorization flow to use because they all have some differences between one another. This application uses the Implicit Grant Authorization flow, it may not be the best but it works for the calls i need.
 
 
 
