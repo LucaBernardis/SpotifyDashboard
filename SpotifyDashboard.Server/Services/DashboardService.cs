@@ -72,14 +72,14 @@ namespace SpotifyDashboard.Server.Services
                 ArtistAlbums = artistAlbums.Select(album => new ListItem
                 {
                     MainText = album.Name,
-                    NumericText = album.TotalTracks,
+                    SecondText = album.TotalTracks.ToString(),
                     Image = album.ImageUrl,
                     SpotifyUrl = album.SpotifyUrl
                 }),
                 NewReleases = newReleases.Select(release => new ListItem
                 {
                     MainText = release.Name,
-                    NumericText = release.TotalTracks,
+                    SecondText = $"{release.TotalTracks.ToString()} tracks",
                     Image = release.ImageUrl,
                     SpotifyUrl = release.SpotifyUrl
                 }),
@@ -95,7 +95,6 @@ namespace SpotifyDashboard.Server.Services
                     MainText = track.Name,
                     Image = track.ImageUrl,
                     SecondText = track.Artist,
-                    NumericText = track.Duration
                 }),
                 UserPlaylists = userPlaylists.Select(playlist => new ListItem
                 {

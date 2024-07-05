@@ -215,5 +215,24 @@ public class SpotifyTests
     public async Task InserisciDatiWidgetSuDB()
     {
         // chiamare GetDashboardConfig, se lista vuota allora inserisci su db i dati dei widget
+
+        var mockCollection = new Mock<IMongoCollection<WidgetComponent>>();
+        var mockCursor = new Mock<IAsyncCursor<WidgetComponent>>();
+        var mockClient = new Mock<IMongoClient>();
+        var mockDatabase = new Mock<IMongoDatabase>();
+
+        var service = new ConfigService(mockClient.Object);
+
+        var data = await service.GetDashboardConfig();
+
+        if(data.Count() == 0)
+        {
+            // service.InsertWidgetData();
+        }
+
+
+        // set mock call to the GetDashboardConfig method
+
+        // Assert check if the result matches the expected one
     }
 }
