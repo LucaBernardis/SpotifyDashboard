@@ -23,7 +23,7 @@ namespace SpotifyDashboard.Server.Services
             var db = _client.GetDatabase("Spotify");
             var collection = db.GetCollection<WidgetComponent>("Tiles");
 
-            var task = await collection.FindAsync(new BsonDocument()); // The query to mongodb
+            var task = await collection.FindAsync<WidgetComponent>(new BsonDocument()); // The query to mongodb
 
             var list = new List<WidgetComponent>();
 
