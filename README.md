@@ -10,7 +10,6 @@ This application use the Spotify-Api to retreive data and manipulate them to get
 
 **Server:** C# minimal Api, MongoDb
 
-#### You can find the front-end project here [SpotifyDashboard.Web](https://github.com/LucaBernardis/SpotifyDashboard.Web)
 ____
 The widgets that this dashboard contains are the following:
 
