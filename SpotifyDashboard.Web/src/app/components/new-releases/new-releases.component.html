@@ -1,0 +1,14 @@
+<div class="new-releases-wrapper">
+    <h2 class="label">{{label}}</h2>
+    <div class="releases">
+        @for(newRelease of releases; track $index){
+            <section class="new-release" (click)="newReleases(newRelease)">
+                <img src="{{newRelease.image}}" alt="" class="release-img">
+                <div class="new-release-data">
+                    <h3 class="release-name">{{newRelease.mainText}}</h3>
+                    <h4 class="release-tracks">{{newRelease.secondText}} tracks</h4>
+                </div>
+            </section>
+        }
+    </div>
+</div>

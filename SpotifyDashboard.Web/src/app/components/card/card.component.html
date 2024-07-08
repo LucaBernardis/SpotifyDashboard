@@ -1,0 +1,12 @@
+<div class="card-container">
+    @if (item?.image != null){
+        <img src="{{item.image}}" alt="Immagine Profile artista" class="card-img">
+    }
+    @else {
+        <img src="https://www.seekpng.com/png/detail/847-8474751_download-empty-profile.png" alt="Immagine non trovata" class="card-img">
+    }
+    <div class="card-data">
+        <h3 class="card-heading">{{label}} <i class="fa-solid fa-star"></i></h3>
+        <h4 class="card-name">{{item?.name}}</h4>
+    </div>
+</div>

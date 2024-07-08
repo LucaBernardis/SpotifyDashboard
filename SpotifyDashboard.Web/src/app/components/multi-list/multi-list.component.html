@@ -1,0 +1,30 @@
+<div class="genres-wrapper">
+    <section class="genre-list">
+        <h2>Artist Albums</h2>
+        <div class="album-wrapper">
+            @for(album of albums; track $index){
+                <section class="album" (click)="albumRedirect(album)">
+                    <img src="{{album.image}}" alt="album img" class="album-img">
+                    <div class="album-data">
+                        <h3 class="album-name">{{album.mainText}}</h3>
+                        <h4 class="album-tracks">{{album.secondText}} tracks</h4>
+                    </div>
+                </section>
+            }
+        </div>
+    </section>
+    <section  class="similar-songs">
+        <h2 class="heading">Recommended Tracks</h2>
+        <div class="rec-wrapper">
+            @for(recTrack of tracks; track $index){
+                <section class="recommended-track" (click)="trackRedirect(recTrack)">
+                    <img src="{{recTrack.image}}" alt="track image" class="rec-img">
+                    <div class="rec-track-data">
+                        <h3 class="track-name">{{recTrack.mainText}}</h3>
+                        <h4 class="artist-name">{{recTrack.secondText}}</h4>
+                    </div>
+                </section>
+            }
+        </div>
+    </section>
+</div>

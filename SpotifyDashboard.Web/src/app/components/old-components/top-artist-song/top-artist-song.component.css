@@ -1,0 +1,53 @@
+.top-artist-song-wrapper {
+    width: 25vw;
+    height: 90%;
+    background-color: rgb(33,33,33);
+    border-radius: 1.5rem;
+    display: grid;
+    place-items: center;
+    justify-content: space-evenly;
+    transition: all .15s ease-in-out;
+}
+
+.top-artist-song-wrapper:hover{
+    box-shadow: 0 0 15px 0 rgba(30, 215, 96, 1);
+}
+
+.label{
+    color: #fff;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+.wrapper{
+    display: flex;
+    width: 20vw;
+    height: 15vh;
+    place-items: center;
+    justify-content: space-evenly;
+}
+
+.album-img {
+    width: 5vw;
+    height: 5vw;
+    object-fit: cover;
+}
+
+.song-data {
+    display: grid;
+    height: 5vh;
+}
+
+h3,h4{
+    margin: 0;
+}
+
+.song-name {
+    font-size: 25px;
+    color: #fff;
+}
+
+.artistName {
+    color: #b3b3b3;
+}

@@ -1,0 +1,12 @@
+<div class="top-artis-container">
+    @if (image != null){
+        <img src="{{image}}" alt="Immagine Profile artista" class="artist-img">
+    }
+    @else {
+        <img src="https://www.seekpng.com/png/detail/847-8474751_download-empty-profile.png" alt="Immagine non trovata" class="artist-img">
+    }
+    <div class="artist-data">
+        <h3 class="top-artist-heading">{{label}} <i class="fa-solid fa-star"></i></h3>
+        <h4 class="artist-name">{{artistName}}</h4>
+    </div>
+</div>

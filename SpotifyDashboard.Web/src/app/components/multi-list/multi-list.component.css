@@ -1,0 +1,148 @@
+::-webkit-scrollbar{
+    display:none;
+}
+
+.genres-wrapper {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(33,33,33);
+    border-radius: 1.5rem;
+    display: flex;
+    place-items: center;
+    transition: all .15s ease-in-out;
+
+}
+
+.genres-wrapper:hover{
+    box-shadow: 0 0 15px 0 rgba(30, 215, 96, 1);
+}
+
+.genre-list {
+    width: 20vw;
+    height: 90%;
+    border-right: 2px solid #b3b3b3;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    justify-content: space-evenly;
+}
+
+.genre-list h2{
+    color: #fff;
+}
+
+.album-wrapper {
+    height: 35vh;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display:grid;
+    place-items: center;
+}
+
+.album {
+    width: 18vw;
+    height: 8vh;
+    display: flex;
+    place-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.album:hover{
+    background-color: rgb(46, 46, 46);
+    border-inline: 3px solid #1db954;
+}
+
+.album-img {
+    width: 3vw;
+    height: 3vw;
+    object-fit: cover;
+}
+
+.album-data {
+    width: 60%;
+    overflow-x: hidden;
+    text-wrap: nowrap;
+    display: grid;
+    text-align: left;
+    height: 5vh;
+}
+
+.album-name {
+    margin: 0;
+    color: #fff;
+}
+
+.album-tracks {
+    margin: 0;
+    font-size: 12px;
+    color: #b3b3b3;
+}
+
+.similar-songs {
+    width: 28vw;
+    height: 90%;
+    text-align: center;
+    display: grid;
+    place-items: center;
+}
+
+
+.similar-songs h2{
+    color: #fff;
+}
+
+.heading{
+    background-color: rgb(33,33,33);
+}
+
+.rec-wrapper{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    overflow-x: scroll;
+}
+
+.recommended-track {
+    width: 80%;
+    height: 8vh;
+    display: flex;
+    place-items: center;
+    justify-content: space-evenly;
+    overflow-x: hidden;
+    text-wrap: nowrap;
+    cursor: pointer;
+}
+
+.recommended-track:hover{
+    background-color: rgb(46, 46, 46);
+    border-inline: 3px solid #1db954;
+}
+
+.rec-img {
+    width: 3vw;
+    height: 3vw;
+    object-fit: cover;
+}
+
+.rec-track-data {
+    width: 55%;
+    display: grid;
+    height: 3vh;
+    text-align: left;
+}
+
+.track-name {
+    margin: 0;
+    color: #fff;
+}
+
+.artist-name {
+    margin: 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+

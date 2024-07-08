@@ -1,0 +1,15 @@
+<div class="top-artist-song-wrapper">
+    <h2 class="label">{{label}}</h2>
+    <div class="wrapper">
+        @if(image != null){
+            <img src="{{image}}" alt="Immagine traccia" class="album-img">
+        }
+        @else {
+            <img src="https://static.vecteezy.com/system/resources/previews/021/190/095/original/tone-music-melody-song-note-sound-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg" alt="Immagine traccia vuota" class="album-img">
+        }
+        <div class="song-data">
+            <h3 class="song-name">{{trackName}}</h3>
+            <h4 class="artistName">{{artist}}</h4>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="playlis-wrapper">
+    <h2 class="label">{{label}}</h2>
+    <div class="wrapper">
+        @for (playlist of playlists; track $index) {
+            <section class="playlist-section" (click)="spotifyRedirect(playlist)">
+                <img src="{{playlist.image}}" alt="" class="playlist-img">
+                <div class="playlist-data">
+                    <h3 class="playlist-name">{{playlist.mainText}}</h3>
+                    <h4 class="playlist-artist">{{playlist.secondText}}</h4>
+                </div>
+            </section>
+        }
+    </div>
+</div>
