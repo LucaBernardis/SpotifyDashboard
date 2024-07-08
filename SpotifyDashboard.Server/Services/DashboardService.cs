@@ -95,6 +95,7 @@ namespace SpotifyDashboard.Server.Services
                     MainText = track.Name,
                     Image = track.ImageUrl,
                     SecondText = track.Artist,
+                    SpotifyUrl = track.SpotifyUrl
                 }),
                 UserPlaylists = userPlaylists.Select(playlist => new ListItem
                 {
