@@ -47,7 +47,7 @@ app.MapDashboardEndPoint(); // This Endpoint manage all the methods calls to mak
 
 // Passo 5
 var mongoclient = app.Services.GetService<IMongoClient>();
-var tiles = mongoclient.GetDatabase("Spotify").GetCollection<WidgetComponent>("Tiles");
+var tiles = mongoclient!.GetDatabase("Spotify").GetCollection<WidgetComponent>("Tiles");
 if(tiles == null)
 {
     // inserisci su db i dati dei widget
