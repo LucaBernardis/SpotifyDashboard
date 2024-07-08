@@ -1,4 +1,4 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TrackService } from '../../services/old-services/track.service';
 import { ListItem } from '../../models/listItem';
 

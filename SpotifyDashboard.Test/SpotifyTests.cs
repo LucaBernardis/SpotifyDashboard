@@ -112,7 +112,7 @@ public class SpotifyTests
         var mockHandler = new Mock<HttpMessageHandler>();
         var httpClient = new HttpClient(mockHandler.Object);
 
-        var expectedTrack = new Track("aaa", 000, "bbb", "https://ccc", trackName);
+        var expectedTrack = new Track("aaa", "bbb", "https://ccc", trackName);
 
         var mockResponse = new JsonObject
         {

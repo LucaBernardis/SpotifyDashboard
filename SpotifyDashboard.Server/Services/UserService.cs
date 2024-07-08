@@ -24,12 +24,12 @@ namespace SpotifyDashboard.Server.Services
 
             // Retrieving the image data from the json Object
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var images = jObj["images"]?.AsArray();
+            var images = jObj?["images"]?.AsArray();
 
             var userData = JsonSerializer.Deserialize<User>(responseBody);
 
             // Setting the imageUrl property to the image array url value
-            userData.ImageUrl = images[0]["url"]?.ToString();
+            userData!.ImageUrl = images?[0]?["url"]?.ToString();
 
             return userData;
         }
@@ -49,9 +49,9 @@ namespace SpotifyDashboard.Server.Services
 
             // Parsing the item object in json to access its properties
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var items = jObj["items"]?.AsArray();
+            var items = jObj?["items"]?.AsArray();
 
-            var playlists = JsonSerializer.Deserialize<List<Playlist>>(items.ToJsonString());
+            var playlists = JsonSerializer.Deserialize<List<Playlist>>(items!.ToJsonString());
 
             // For each playlist object
             for (int i = 0; i < playlists?.Count; i++)
@@ -60,23 +60,23 @@ namespace SpotifyDashboard.Server.Services
                 var item = items[i];
 
                 // Assign to the Owner property the value of the owner display name
-                var owner = item["owner"].AsObject();
-                if (owner.Count > 0)
+                var owner = item?["owner"]?.AsObject();
+                if (owner!.Count > 0)
                 {
                     playlist.Owner = owner["display_name"]?.ToString();
                 }
 
                 // Assign to the SpotifyUrl property the value of the external spotify link
-                var exturl = item["external_urls"]?.AsObject();
-                playlist.SpotifyUrl = exturl["spotify"]?.ToString();
+                var exturl = item? ["external_urls"]?.AsObject();
+                playlist.SpotifyUrl = exturl?["spotify"]?.ToString();
 
                 // Assign to the ImageUrl property the value of the image url
-                var image = item["images"].AsArray()[0]?.AsObject();
-                playlist.Image = image["url"]?.ToString();
+                var image = item?["images"]?.AsArray()[0]?.AsObject();
+                playlist.Image = image?["url"]?.ToString();
 
             }
 
-            return playlists;
+            return playlists!;
 
         }
     }

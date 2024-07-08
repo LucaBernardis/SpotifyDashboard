@@ -11,13 +11,12 @@ namespace SpotifyDashboard.Server.Models
         [JsonPropertyName("name")]
         public string? Name { get; set; }
 
-        //[JsonPropertyName("owner")]
-        public string? Owner { get; set; }
-
         [JsonPropertyName("image")]
         public string? Image { get; set; }
 
         public string? SpotifyUrl { get; set; }
+
+        public string? Owner { get; set; }
 
     }
 }

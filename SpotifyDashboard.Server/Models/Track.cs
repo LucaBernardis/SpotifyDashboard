@@ -18,9 +18,6 @@ namespace SpotifyDashboard.Server.Models
         [JsonPropertyName("image")]
         public string? ImageUrl { get; set; }
 
-        [JsonPropertyName("duration_ms")]
-        public int Duration { get; set; }
-
         [JsonPropertyName("spotifyUrl")]
         public string? SpotifyUrl { get; set; }
 
@@ -30,10 +27,9 @@ namespace SpotifyDashboard.Server.Models
             
         }
 
-        public Track(string artist, int duration, string id, string image, string name)
+        public Track(string artist, string id, string image, string name)
         {
             Artist = artist;
-            Duration = duration;
             Id = id;
             ImageUrl = image;
             Name = name;
