@@ -1,0 +1,46 @@
+.top-artis-container {
+    width: 18vw;
+    min-width: 300px;
+    display: flex;
+    background: rgb(33, 33, 33);
+    background: linear-gradient(20deg, rgba(33, 33, 33, 1) 61%, rgba(30, 215, 96, 1) 100%);
+    border-radius: 1.5rem;
+    height: 15vh;
+    place-items: center;
+    justify-content: space-evenly;
+    transition: all .15s ease-in-out;
+}
+
+.top-artis-container:hover{
+    box-shadow: 0 0 15px 0 rgba(30, 215, 96, 1);
+}
+
+.artist-img {
+    width: 5vw;
+    height: 5vw;
+    object-fit: cover;
+    
+}
+
+.artist-data {
+    width: 50%;
+}
+
+h3{
+    color: #b3b3b3;
+}
+
+h4{
+    color: #fff;
+}
+
+.top-artist-heading {
+    font-size: 15px;
+    margin: 0;
+}
+
+.artist-name {
+    font-size: 25px;
+    letter-spacing: 1px;
+    margin: 0;
+}

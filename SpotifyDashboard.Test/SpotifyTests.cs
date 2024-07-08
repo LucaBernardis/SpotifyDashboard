@@ -7,7 +7,6 @@ using System.Net;
 using System.Text.Json.Nodes;
 using SpotifyDashboard.Server.Models.Dashboard;
 using MongoDB.Driver;
-using System.ComponentModel.DataAnnotations;
 
 namespace SpotifyDashboard.Test;
 

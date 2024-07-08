@@ -43,7 +43,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Mapping created Enpoints
-app.MapDashboardEndPoint(); // Quest'unico endpoint gestisce tutte le chiamate ai metodi di cui si ha bisogno per far si che la dashboard funzioni
+app.MapDashboardEndPoint(); // This Endpoint manage all the methods calls to make the widget on the dashboard work
 
 // Passo 5
 var mongoclient = app.Services.GetService<IMongoClient>();

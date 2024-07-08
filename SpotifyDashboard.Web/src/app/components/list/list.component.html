@@ -1,0 +1,19 @@
+<div class="top-ten-songs">
+    <h2 class="label">{{label}}</h2>
+    <div class="wrapper">
+        @for (item of items; track $index) {
+            <section class="song" (click)="playSong(this.item)">
+                @if(item.image != null){
+                    <img src="{{item.image}}" class="song-img">
+                }
+                @else {
+                    <img src="https://static.vecteezy.com/system/resources/previews/021/190/095/original/tone-music-melody-song-note-sound-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg" class="song-img">
+                }
+                <div class="song-data" >
+                    <h3>{{item.mainText}}</h3>
+                    <h4>{{item.secondText}} <!--<br><span class="duration">{{track.duration}} m</span>--></h4>
+                </div>
+            </section>
+        }
+    </div>
+</div>

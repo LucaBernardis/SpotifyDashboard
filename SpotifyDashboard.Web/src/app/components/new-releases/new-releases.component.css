@@ -1,0 +1,76 @@
+::-webkit-scrollbar{
+    display: none;
+}
+
+.new-releases-wrapper {
+    width: 25vw;
+    height: 90%;
+    background-color: rgb(33,33,33);
+    border-radius: 1.5rem;
+    display: grid;
+    overflow-x: hidden;
+    place-items: center;
+    justify-content: space-evenly;
+    transition: all .15s ease-in-out;
+}
+
+.label{
+    width: 100%;
+    color: #fff;
+    align-items: center;
+    text-align: center;
+}
+
+.releases{
+    width: 85%;
+    height: 15vh;
+    overflow-y: scroll;
+}
+
+.new-releases-wrapper:hover{
+    box-shadow: 0 0 15px 0 rgba(30, 215, 96, 1);
+}
+
+.new-release {
+    width: 95%;
+    height: 8vh;
+    display: flex;
+    place-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+    border-inline: 3px solid transparent;
+}
+
+.new-release:hover{
+    background-color: rgb(46, 46, 46);
+    border-inline: 3px solid #1db954;
+}
+
+.release-img {
+    width: 3vw;
+    height: 3vw;
+    object-fit: cover;
+}
+
+.new-release-data {
+    display: grid;
+    overflow-x: hidden;
+    width: 60%;
+    height: fit-content;
+    text-align: left;
+}
+
+.release-name {
+    width: 100%;
+    overflow-x: hidden;
+    text-wrap: nowrap;
+    margin: 0;
+    color: #fff;
+    font-size: 15px;
+}
+
+.release-tracks {
+    margin: 0;
+    font-size: 12px;
+    color: #b3b3b3;
+}

@@ -1,0 +1,75 @@
+.w-1 {
+    width: 20%;
+}
+
+.w-2 {
+    width: 47%;
+}
+
+.w-3 {
+    width: 70%;
+}
+
+.w-4 {
+    width: 95%;
+}
+
+.h-1{
+    height: 20%;
+}
+
+.h-2{
+    height: 50%;
+}
+
+.h-3{
+    height: 75%;
+}
+
+.h-4{
+    height: 95%;
+}
+
+.wrapper{
+    display: flex;
+    place-items: center;
+    justify-content: space-evenly;
+    height: 100vh;
+    width: 100vw;
+}
+
+.left-side-elements {
+    position: absolute;
+    left: 2rem;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    justify-content: center;
+
+}
+
+main{
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: .5rem;
+    place-items: center;
+    position: absolute;
+    align-content:space-between;
+}
+
+.right-side-elements {
+    position: absolute;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    justify-content: space-evenly;
+}
+
+.inline-wrapper{
+    display: flex;
+    width: 100%;
+    height: fit-content;
+}

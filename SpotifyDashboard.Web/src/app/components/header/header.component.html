@@ -1,0 +1,13 @@
+<header class="user-data">
+    <img src="https://th.bing.com/th/id/R.b91927f38504618cef40d2eaaffe3ece?rik=Bu4Wu6%2fEIjRb3w&riu=http%3a%2f%2fstatic2.businessinsider.com%2fimage%2f55801a50eab8ea1f1a3304f1-1200-364%2fspotify-logo.png&ehk=nPuYh82jiwvvhWs098el3V6n%2fPOTw67hj%2f2zus26r0A%3d&risl=&pid=ImgRaw&r=0" alt="" class="spotify-logo">
+    <div class="user">
+        <h3 class="username">{{userName}}</h3>
+        @if(image == null || image == ''){
+            <img src="https://www.pngkey.com/png/full/52-523516_empty-circle-png.png" alt="" class="user-img">
+        }
+        @else {
+            <img src="{{image}}" alt="" class="user-img">
+        }
+    </div>
+</header>
+
