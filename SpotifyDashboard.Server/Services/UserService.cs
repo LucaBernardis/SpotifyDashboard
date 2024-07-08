@@ -41,7 +41,7 @@ namespace SpotifyDashboard.Server.Services
         public async Task<IEnumerable<Playlist>> GetUserPlaylist()
         {
             // Http call to the spotify api address
-            using HttpResponseMessage response = await _httpClient.GetAsync($"v1/me/playlists");
+            using HttpResponseMessage response = await _httpClient.GetAsync($"v1/me/playlists?limit=20");
 
             response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
 

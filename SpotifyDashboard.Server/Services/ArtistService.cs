@@ -126,40 +126,40 @@ namespace SpotifyDashboard.Server.Services
         public async Task<IEnumerable<Album>> GetNewReleases()
         {
             //// Http call to the spotify api address
-            //using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/browse/new-releases");
+            using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/browse/new-releases");
 
-            //response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
+            response.EnsureSuccessStatusCode(); // Throw an exception if the response is not successful
 
-            //var responseBody = await response.Content.ReadAsStringAsync();
+            var responseBody = await response.Content.ReadAsStringAsync();
 
-            //var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            //var wrapper = jObj["albums"]?.AsObject();
-            //var releases = wrapper["items"]?.AsArray();
+            var jObj = JsonNode.Parse(responseBody)?.AsObject();
+            var wrapper = jObj["albums"]?.AsObject();
+            var releases = wrapper["items"]?.AsArray();
 
-            //var newReleases = JsonSerializer.Deserialize<List<Album>>(releases.ToJsonString());
+            var newReleases = JsonSerializer.Deserialize<List<Album>>(releases.ToJsonString());
 
-            //for (int i = 0; i < newReleases.Count(); i++)
-            //{
-            //    var newRelease = newReleases[i];
-            //    var item = releases[i];
+            for (int i = 0; i < newReleases.Count(); i++)
+            {
+                var newRelease = newReleases[i];
+                var item = releases[i];
 
-            //    // Assign to the SpotifyUrl property the value of the spotify external url
-            //    var extUrl = item["external_urls"]?.AsObject();
-            //    newRelease.SpotifyUrl = extUrl["spotify"]?.ToString();
+                // Assign to the SpotifyUrl property the value of the spotify external url
+                var extUrl = item["external_urls"]?.AsObject();
+                newRelease.SpotifyUrl = extUrl["spotify"]?.ToString();
 
-            //    // Assign to the ImaegeUrl the value of the image array url
-            //    var image = item["images"]?.AsArray();
-            //    var imageUrl = image[0]["url"]?.ToString();
-            //    newRelease.ImageUrl = imageUrl;
+                // Assign to the ImaegeUrl the value of the image array url
+                var image = item["images"]?.AsArray();
+                var imageUrl = image[0]["url"]?.ToString();
+                newRelease.ImageUrl = imageUrl;
 
-            //    // Assign to the Artist property the value of the artist name
-            //    var artist = item["artists"]?.AsArray();
-            //    var artistName = artist[0]["name"]?.ToString();
-            //    newRelease.Artist = artistName;
-            //}
+                // Assign to the Artist property the value of the artist name
+                var artist = item["artists"]?.AsArray();
+                var artistName = artist[0]["name"]?.ToString();
+                newRelease.Artist = artistName;
+            }
 
-            //return newReleases;
-            return new List<Album>();
+            return newReleases;
+
         }
 
     }

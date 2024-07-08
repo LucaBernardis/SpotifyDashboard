@@ -45,6 +45,12 @@ namespace SpotifyDashboard.Server.Services
                 {
                     track.ImageUrl = images[0]["url"]?.ToString();
                 }
+
+                // assign spotify url
+
+                var links = item["external_urls"]?.AsObject();
+                var spotLink = links["spotify"]?.ToString();
+                track.SpotifyUrl = spotLink;
             }
 
             return tracks;
