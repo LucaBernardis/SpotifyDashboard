@@ -19,7 +19,7 @@ namespace SpotifyDashboard.Server.Services
 
             var responseBody = await response.Content.ReadAsStringAsync();
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var items = jObj["items"]?.AsArray();
+            var items = jObj?["items"]?.AsArray();
 
             var artistJson = items[0]?.ToJsonString();
             var artist = JsonSerializer.Deserialize<Artist>(artistJson);
@@ -53,13 +53,13 @@ namespace SpotifyDashboard.Server.Services
             var responseBody = await response.Content.ReadAsStringAsync();
 
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var tracks = jObj["tracks"]?.AsArray();
+            var tracks = jObj?["tracks"]?.AsArray();
 
             var track = JsonSerializer.Deserialize<List<Track>>(tracks.ToJsonString());
 
             // Assign to the ImageUrl property the value of the album image url
             var album = tracks[0]["album"]?.AsObject();
-            var albumImg = album["images"]?.AsArray();
+            var albumImg = album?["images"]?.AsArray();
             track[0].ImageUrl = albumImg[0]["url"]?.ToString();
 
             // Assign to the Name property the value of the first track name
@@ -88,7 +88,7 @@ namespace SpotifyDashboard.Server.Services
             var responseBody = await response.Content.ReadAsStringAsync();
 
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var albums = jObj["items"]?.AsArray();
+            var albums = jObj?["items"]?.AsArray();
 
 
             var albumList = JsonSerializer.Deserialize<List<Album>>(albums.ToJsonString());
@@ -100,16 +100,16 @@ namespace SpotifyDashboard.Server.Services
                 var item = albums[i];
 
                 // Assign to the SpotifyUrl property the value of the spotify external url
-                var extUrl = item["external_urls"]?.AsObject();
+                var extUrl = item?["external_urls"]?.AsObject();
                 album.SpotifyUrl = extUrl["spotify"]?.ToString();
 
                 // Assign to the ImaegeUrl the value of the image array url
-                var image = item["images"]?.AsArray();
+                var image = item?["images"]?.AsArray();
                 var imageUrl = image[0]["url"]?.ToString();
                 album.ImageUrl = imageUrl;
 
                 // Assign to the Artist property the value of the artist name
-                var artist = item["artists"]?.AsArray();
+                var artist = item?["artists"]?.AsArray();
                 var artistName = artist[0]["name"]?.ToString();
                 album.Artist = artistName;
             }
@@ -133,27 +133,27 @@ namespace SpotifyDashboard.Server.Services
             var responseBody = await response.Content.ReadAsStringAsync();
 
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var wrapper = jObj["albums"]?.AsObject();
-            var releases = wrapper["items"]?.AsArray();
+            var wrapper = jObj?["albums"]?.AsObject();
+            var releases = wrapper?["items"]?.AsArray();
 
             var newReleases = JsonSerializer.Deserialize<List<Album>>(releases.ToJsonString());
 
-            for (int i = 0; i < newReleases.Count(); i++)
+            for (int i = 0; i < newReleases.Count; i++)
             {
                 var newRelease = newReleases[i];
                 var item = releases[i];
 
                 // Assign to the SpotifyUrl property the value of the spotify external url
-                var extUrl = item["external_urls"]?.AsObject();
+                var extUrl = item?["external_urls"]?.AsObject();
                 newRelease.SpotifyUrl = extUrl["spotify"]?.ToString();
 
                 // Assign to the ImaegeUrl the value of the image array url
-                var image = item["images"]?.AsArray();
+                var image = item?["images"]?.AsArray();
                 var imageUrl = image[0]["url"]?.ToString();
                 newRelease.ImageUrl = imageUrl;
 
                 // Assign to the Artist property the value of the artist name
-                var artist = item["artists"]?.AsArray();
+                var artist = item?["artists"]?.AsArray();
                 var artistName = artist[0]["name"]?.ToString();
                 newRelease.Artist = artistName;
             }
