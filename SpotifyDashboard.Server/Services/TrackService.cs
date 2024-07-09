@@ -21,37 +21,7 @@ namespace SpotifyDashboard.Server.Services
 
             // Retrieving the items from the json Object
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var items = jObj?["items"]?.AsArray();
-
-            var tracks = JsonSerializer.Deserialize<List<Track>>(items!.ToJsonString());
-
-            // For each track object
-            for (int i = 0; i < tracks!.Count; i++)
-            {
-                var track = tracks[i];
-                var item = items[i];
-
-                // Assign to tthe Artist property the value of the artist name
-                var artists = item?["artists"]?.AsArray();
-                if (artists!.Count > 0)
-                {
-                    track.Artist = artists[0]["name"].ToString();
-                }
-
-                // Assign to the ImageUrl the value of the image url    
-                var album = item?["album"]?.AsObject();
-                var images = album?["images"]?.AsArray();
-                if (images!.Count > 0)
-                {
-                    track.ImageUrl = images[0]["url"].ToString();
-                }
-
-                // assign spotify url
-
-                var links = item?["external_urls"]?.AsObject();
-                var spotLink = links?["spotify"]?.ToString();
-                track.SpotifyUrl = spotLink!;
-            }
+            var tracks = Filter.MapTracks(jObj!, "items");
 
             return tracks;
         }
@@ -77,40 +47,9 @@ namespace SpotifyDashboard.Server.Services
 
             // Retrieving the tracks from the json Object
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var tracks = jObj?["tracks"]?.AsArray();
+            var recommended = Filter.MapTracks(jObj!, "tracks");
 
-            var recommend = JsonSerializer.Deserialize<List<Track>>(tracks);
-
-            // For each track object
-            for (int i = 0; i < tracks!.Count; i++)
-            {
-                var track = tracks[i];
-                var rec = recommend?[i];
-
-                // Assign to the ImageUrl property the value of the images array url
-                var album = track?["album"]?.AsObject();
-                var images = album?["images"]?.AsArray();
-
-                if(images != null)
-                    rec!.ImageUrl = images[0]["url"]?.ToString();
-
-                // Assign to the ArtistName property the artist object name value
-                var artist = track?["artists"]?.AsArray();
-                var artistName = artist?[0]?["name"]?.ToString();
-
-                // Assign to the SpotifyUrl property the value of the spotify external url
-                var extUrl = track?["external_urls"]?.AsObject();
-                var url = "";
-
-                if (extUrl != null)
-                    url = extUrl["spotify"]?.ToString();
-
-                rec!.SpotifyUrl = url!;
-
-                rec.Artist = artistName!;
-            }
-
-            return recommend!;
+            return recommended!;
         }
     }
 }
