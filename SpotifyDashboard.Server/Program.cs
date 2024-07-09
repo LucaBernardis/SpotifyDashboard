@@ -1,6 +1,5 @@
 using MongoDB.Driver;
 using SpotifyDashboard.Server.Endpoints;
-using SpotifyDashboard.Server.Models.Dashboard;
 using SpotifyDashboard.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);

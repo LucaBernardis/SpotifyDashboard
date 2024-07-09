@@ -55,28 +55,8 @@ namespace SpotifyDashboard.Server.Services
             var responseBody = await response.Content.ReadAsStringAsync();
 
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var tracks = jObj?["tracks"]?.AsArray();
-
-            var track = JsonSerializer.Deserialize<List<Track>>(tracks!.ToJsonString());
-
-            // Assign to the ImageUrl property the value of the album image url
-            var album = tracks[0]?["album"]?.AsObject();
-            var albumImg = album?["images"]?.AsArray();
-
-            if(albumImg != null) 
-                track![0].ImageUrl = albumImg[0]["url"].ToString();
-
-            // Assign to the Name property the value of the first track name
-            track![0].Name = tracks[0]["name"].ToString();
-
-            // Assign to the artist property the value of the first artist name
-            var artist = tracks[0]?["artists"]?.AsArray();
-
-            if(artist != null)
-                track[0].Artist = artist[0]["name"].ToString();
-
-            var topTrack = track[0];
-            return topTrack;
+            var topTrack = Filter.MapTracks(jObj!, "tracks");
+            return topTrack[0];
         }
 
         /// <summary>
@@ -94,33 +74,7 @@ namespace SpotifyDashboard.Server.Services
             var responseBody = await response.Content.ReadAsStringAsync();
 
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var albums = jObj?["items"]?.AsArray();
-
-
-            var albumList = JsonSerializer.Deserialize<List<Album>>(albums!.ToJsonString());
-
-            // For Each album object
-            for (int i = 0; i < albumList!.Count; i++)
-            {
-                var album = albumList[i];
-                var item = albums[i];
-
-                // Assign to the SpotifyUrl property the value of the spotify external url
-                var extUrl = item?["external_urls"]?.AsObject();
-
-                if (extUrl != null)
-                    album.SpotifyUrl = extUrl["spotify"].ToString();
-
-                // Assign to the ImaegeUrl the value of the image array url
-                var image = item?["images"]?.AsArray();
-                var imageUrl = image?[0]?["url"]?.ToString();
-                album.ImageUrl = imageUrl!;
-
-                // Assign to the Artist property the value of the artist name
-                var artist = item?["artists"]?.AsArray();
-                var artistName = artist?[0]?["name"]?.ToString();
-                album.Artist = artistName!;
-            }
+            var albumList = Filter.MapAlbums(jObj!, "items");
 
             return albumList;
 
@@ -141,32 +95,7 @@ namespace SpotifyDashboard.Server.Services
             var responseBody = await response.Content.ReadAsStringAsync();
 
             var jObj = JsonNode.Parse(responseBody)?.AsObject();
-            var wrapper = jObj?["albums"]?.AsObject();
-            var releases = wrapper?["items"]?.AsArray();
-
-            var newReleases = JsonSerializer.Deserialize<List<Album>>(releases!.ToJsonString());
-
-            for (int i = 0; i < newReleases!.Count; i++)
-            {
-                var newRelease = newReleases[i];
-                var item = releases[i];
-
-                // Assign to the SpotifyUrl property the value of the spotify external url
-                var extUrl = item?["external_urls"]?.AsObject();
-
-                if(extUrl != null)
-                    newRelease.SpotifyUrl = extUrl["spotify"].ToString();
-
-                // Assign to the ImaegeUrl the value of the image array url
-                var image = item?["images"]?.AsArray();
-                var imageUrl = image?[0]?["url"]?.ToString();
-                newRelease.ImageUrl = imageUrl!;
-
-                // Assign to the Artist property the value of the artist name
-                var artist = item?["artists"]?.AsArray();
-                var artistName = artist?[0]?["name"]?.ToString();
-                newRelease.Artist = artistName!;
-            }
+            var newReleases = Filter.MapAlbums(jObj!, "albums");
 
             return newReleases;
 
