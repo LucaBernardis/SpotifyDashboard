@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { TrackService } from '../../services/old-services/track.service';
 import { ListItem } from '../../models/listItem';
 
 @Component({
@@ -16,7 +15,7 @@ export class ListComponent{
   @Input() label: string = '';
 
 
-  constructor(private trackService: TrackService) { }
+  constructor() { }
 
 
   // Pass the track values to the player component
