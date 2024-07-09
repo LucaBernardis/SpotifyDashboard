@@ -1,12 +1,14 @@
-import { DashboardData } from '../../models/dashboardData';
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
-import { MultiListComponent } from "../multi-list/multi-list.component";
-import { DashboardApiService } from '../../services/api/dashboard-api.service';
+
 import { Config } from '../../models/config';
+import { DashboardData } from '../../models/dashboardData';
+import { DashboardApiService } from '../../services/api/dashboard-api.service';
+
 import { CardComponent } from "../card/card.component";
 import { ListComponent } from '../list/list.component';
 import { PositionPipe } from '../../pipes/position.pipe';
+import { HeaderComponent } from "../header/header.component";
+import { MultiListComponent } from "../multi-list/multi-list.component";
 
 @Component({
     selector: 'app-dashboard-wrapper',
