@@ -1,6 +1,4 @@
 ﻿using SpotifyDashboard.Server.Models;
-using System.Diagnostics;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -12,7 +10,7 @@ namespace SpotifyDashboard.Server.Services
         /// <summary>
         /// Method to get all the data related to the current authenticated user
         /// </summary>
-        /// <returns> A User object with the values usefull to the dashboard component </returns>
+        /// <returns> A <see cref="User"/> object with the values usefull to the dashboard component </returns>
         public async Task<User> GetUserData()
         {
             // Http call to the spotify api address
@@ -37,7 +35,7 @@ namespace SpotifyDashboard.Server.Services
         /// <summary>
         /// Method to get all the user's playlists and the related data
         /// </summary>
-        /// <returns> A list of playlists with all their data </returns>
+        /// <returns> A <see cref="List{T}"/> of <see cref="Playlist"/> </returns>
         public async Task<IEnumerable<Playlist>> GetUserPlaylist()
         {
             // Http call to the spotify api address

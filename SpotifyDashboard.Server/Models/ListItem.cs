@@ -2,8 +2,7 @@
 {
 
     /// <summary>
-    /// Represent the list object, all the objects have
-    /// the same similar structure so you can group them in a generic class
+    /// Represent the list object
     /// </summary>
     public class ListItem
     {

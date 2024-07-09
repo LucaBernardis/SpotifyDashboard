@@ -1,5 +1,8 @@
 ﻿namespace SpotifyDashboard.Server.Models.Dashboard
 {
+    /// <summary>
+    /// Object that groups all the <see cref="WidgetComponent"/> in the dashboard
+    /// </summary>
     public class Dashboard
     {
         public User User { get; set; } = new User();

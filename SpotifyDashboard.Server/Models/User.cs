@@ -2,8 +2,11 @@
 
 namespace SpotifyDashboard.Server.Models
 {
-    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Skip)]
 
+    /// <summary>
+    /// Object to store the current user's data
+    /// </summary>
+    [JsonUnmappedMemberHandling(JsonUnmappedMemberHandling.Skip)]
     public class User
     {
         [JsonPropertyName("display_name")]
