@@ -18,7 +18,7 @@ public class SpotifyTests
     
     [Theory(DisplayName = "Ritorna i dati dell'utente corrente")]
     [InlineData("Bernardisluca")]
-    public async void GetTestUserData(string username)
+    public async Task GetTestUserData(string username)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
         var httpClient = new HttpClient(mockHandler.Object);
@@ -57,7 +57,7 @@ public class SpotifyTests
 
     [Theory(DisplayName = "Ritorna l'artista preferito dall'utente")]
     [InlineData("Ikka")]
-    public async void TestArtistaPreferito(string favouriteArtist)
+    public async Task TestArtistaPreferito(string favouriteArtist)
     {
         // Setup
         var expectedArtist = new Artist("bbb", "aaa", "https://aaaaaaa", favouriteArtist);
@@ -107,7 +107,7 @@ public class SpotifyTests
 
     [Theory(DisplayName = "Ritorna la miglior canzone dell' artista preferito dell'utente")]
     [InlineData("NomeTraccia", "aaabbbccc")]
-    public async void MigliorTracciaArtistaPreferito( string trackName, string id)
+    public async Task MigliorTracciaArtistaPreferito( string trackName, string id)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
         var httpClient = new HttpClient(mockHandler.Object);
@@ -165,7 +165,6 @@ public class SpotifyTests
 
 
     // Test per mongodb
-
     [Theory(DisplayName = "Ritorna la risponsa con dati mock per il client mongo")]
     [InlineData("WidgetComponent1")]
     public async Task Test_GetDashboardConfig(string widgetComponentName)
