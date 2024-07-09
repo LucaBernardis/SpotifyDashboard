@@ -18,6 +18,12 @@ namespace SpotifyDashboard.Server.Models
         [JsonPropertyName("image")]
         public string? ImageUrl { get; set; }
 
+        public User()
+        {
+            
+        }
+
+        // Constructor for test method
         public User(string name, string email, string id, string image)
         {
             DisplayName = name;
@@ -25,11 +31,5 @@ namespace SpotifyDashboard.Server.Models
             Id = id;
             ImageUrl = image;
         }
-
-        public User()
-        {
-            
-        }
     }
-
 }

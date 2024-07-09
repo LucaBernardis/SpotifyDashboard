@@ -22,6 +22,7 @@ namespace SpotifyDashboard.Server.Models
             
         }
 
+        // Constructor for test method
         public Artist(string genre, string id, string image, string name)
         {
             Genres = genre;

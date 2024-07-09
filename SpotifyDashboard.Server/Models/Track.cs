@@ -27,6 +27,7 @@ namespace SpotifyDashboard.Server.Models
             
         }
 
+        // Constructor for test method
         public Track(string artist, string id, string image, string name)
         {
             Artist = artist;
