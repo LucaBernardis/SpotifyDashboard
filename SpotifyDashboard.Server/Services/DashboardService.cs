@@ -8,11 +8,12 @@ namespace SpotifyDashboard.Server.Services
     public partial class DashboardService
     {
         private readonly HttpClient _httpClient;
+        private readonly string SpotifyApi = "https://api.spotify.com/";
 
         public DashboardService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("https://api.spotify.com/");
+            _httpClient.BaseAddress = new Uri(SpotifyApi);
 
         }
 
@@ -79,7 +80,7 @@ namespace SpotifyDashboard.Server.Services
                 NewReleases = newReleases.Select(release => new ListItem
                 {
                     MainText = release.Name,
-                    SecondText = $"{release.TotalTracks.ToString()} tracks",
+                    SecondText = $"{release.TotalTracks} tracks",
                     Image = release.ImageUrl,
                     SpotifyUrl = release.SpotifyUrl
                 }),

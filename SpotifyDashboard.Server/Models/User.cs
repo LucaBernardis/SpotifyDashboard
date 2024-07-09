@@ -7,13 +7,13 @@ namespace SpotifyDashboard.Server.Models
     public class User
     {
         [JsonPropertyName("display_name")]
-        public string? DisplayName { get; set; }
+        public string DisplayName { get; set; } = "";
 
         [JsonPropertyName("email")]
-        public string? Email { get; set; }
+        public string Email { get; set; } = "";
 
         [JsonPropertyName("id")]
-        public string? Id { get; set; }
+        public string Id { get; set; } = "";
 
         [JsonPropertyName("image")]
         public string? ImageUrl { get; set; }

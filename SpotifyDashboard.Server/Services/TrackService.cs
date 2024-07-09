@@ -35,7 +35,7 @@ namespace SpotifyDashboard.Server.Services
                 var artists = item?["artists"]?.AsArray();
                 if (artists!.Count > 0)
                 {
-                    track.Artist = artists[0]?["name"]?.ToString();
+                    track.Artist = artists[0]["name"].ToString();
                 }
 
                 // Assign to the ImageUrl the value of the image url    
@@ -43,14 +43,14 @@ namespace SpotifyDashboard.Server.Services
                 var images = album?["images"]?.AsArray();
                 if (images!.Count > 0)
                 {
-                    track.ImageUrl = images[0]?["url"]?.ToString();
+                    track.ImageUrl = images[0]["url"].ToString();
                 }
 
                 // assign spotify url
 
                 var links = item?["external_urls"]?.AsObject();
                 var spotLink = links?["spotify"]?.ToString();
-                track.SpotifyUrl = spotLink;
+                track.SpotifyUrl = spotLink!;
             }
 
             return tracks;
@@ -91,7 +91,8 @@ namespace SpotifyDashboard.Server.Services
                 var album = track?["album"]?.AsObject();
                 var images = album?["images"]?.AsArray();
 
-                rec!.ImageUrl = images?[0]?["url"]?.ToString();
+                if(images != null)
+                    rec!.ImageUrl = images[0]["url"]?.ToString();
 
                 // Assign to the ArtistName property the artist object name value
                 var artist = track?["artists"]?.AsArray();
@@ -99,11 +100,14 @@ namespace SpotifyDashboard.Server.Services
 
                 // Assign to the SpotifyUrl property the value of the spotify external url
                 var extUrl = track?["external_urls"]?.AsObject();
-                var url = extUrl?["spotify"]?.ToString();
+                var url = "";
 
-                rec.SpotifyUrl = url;
+                if (extUrl != null)
+                    url = extUrl["spotify"]?.ToString();
 
-                rec.Artist = artistName;
+                rec!.SpotifyUrl = url!;
+
+                rec.Artist = artistName!;
             }
 
             return recommend!;
