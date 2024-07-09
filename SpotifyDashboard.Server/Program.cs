@@ -45,13 +45,5 @@ app.MapControllers();
 // Mapping created Enpoints
 app.MapDashboardEndPoint(); // This Endpoint manage all the methods calls to make the widget on the dashboard work
 
-// Passo 5
-var mongoclient = app.Services.GetService<IMongoClient>();
-var tiles = mongoclient!.GetDatabase("Spotify").GetCollection<WidgetComponent>("Tiles");
-if(tiles == null)
-{
-    // inserisci su db i dati dei widget
-}
 
-
-app.Run();
+await app.RunAsync();
