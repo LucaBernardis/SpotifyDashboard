@@ -17,8 +17,8 @@ public class SpotifyTests
     // Test per chiamte api a spotify
     
     [Theory(DisplayName = "Ritorna i dati dell'utente corrente")]
-    [InlineData("Bearer aaa","Bernardisluca")]
-    public async void GetTestUserData(string token, string username)
+    [InlineData("Bernardisluca")]
+    public async void GetTestUserData(string username)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
         var httpClient = new HttpClient(mockHandler.Object);
@@ -56,8 +56,8 @@ public class SpotifyTests
 
 
     [Theory(DisplayName = "Ritorna l'artista preferito dall'utente")]
-    [InlineData("Bearer aaa","Ikka")]
-    public async void TestArtistaPreferito(string token, string favouriteArtist)
+    [InlineData("Ikka")]
+    public async void TestArtistaPreferito(string favouriteArtist)
     {
         // Setup
         var expectedArtist = new Artist("bbb", "aaa", "https://aaaaaaa", favouriteArtist);
@@ -106,8 +106,8 @@ public class SpotifyTests
 
 
     [Theory(DisplayName = "Ritorna la miglior canzone dell' artista preferito dell'utente")]
-    [InlineData("Bearer aaa", "NomeTraccia", "aaabbbccc")]
-    public async void MigliorTracciaArtistaPreferito(string token, string trackName, string id)
+    [InlineData("NomeTraccia", "aaabbbccc")]
+    public async void MigliorTracciaArtistaPreferito( string trackName, string id)
     {
         var mockHandler = new Mock<HttpMessageHandler>();
         var httpClient = new HttpClient(mockHandler.Object);
@@ -206,32 +206,6 @@ public class SpotifyTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.True(result.Any(w => w.WidgetName == widgetComponentName));
-    }
-
-
-    [Fact(DisplayName = "Inserisci su db se lista resistuita è vuota")]
-    public async Task InserisciDatiWidgetSuDB()
-    {
-        // chiamare GetDashboardConfig, se lista vuota allora inserisci su db i dati dei widget
-
-        var mockCollection = new Mock<IMongoCollection<WidgetComponent>>();
-        var mockCursor = new Mock<IAsyncCursor<WidgetComponent>>();
-        var mockClient = new Mock<IMongoClient>();
-        var mockDatabase = new Mock<IMongoDatabase>();
-
-        var service = new ConfigService(mockClient.Object);
-
-        var data = await service.GetDashboardConfig();
-
-        if(data.Count() == 0)
-        {
-            // service.InsertWidgetData();
-        }
-
-
-        // set mock call to the GetDashboardConfig method
-
-        // Assert check if the result matches the expected one
+        Assert.True(result.Exists(w => w.WidgetName == widgetComponentName));
     }
 }

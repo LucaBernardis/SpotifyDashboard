@@ -64,16 +64,16 @@ namespace SpotifyDashboard.Server.Services
             var albumImg = album?["images"]?.AsArray();
 
             if(albumImg != null) 
-                track![0].ImageUrl = albumImg[0]["url"]?.ToString();
+                track![0].ImageUrl = albumImg[0]["url"].ToString();
 
             // Assign to the Name property the value of the first track name
-            track[0].Name = tracks[0]["name"]?.ToString();
+            track![0].Name = tracks[0]["name"].ToString();
 
             // Assign to the artist property the value of the first artist name
             var artist = tracks[0]?["artists"]?.AsArray();
 
             if(artist != null)
-                track[0].Artist = artist[0]["name"]?.ToString();
+                track[0].Artist = artist[0]["name"].ToString();
 
             var topTrack = track[0];
             return topTrack;
@@ -155,7 +155,7 @@ namespace SpotifyDashboard.Server.Services
                 var extUrl = item?["external_urls"]?.AsObject();
 
                 if(extUrl != null)
-                    newRelease.SpotifyUrl = extUrl["spotify"]?.ToString();
+                    newRelease.SpotifyUrl = extUrl["spotify"].ToString();
 
                 // Assign to the ImaegeUrl the value of the image array url
                 var image = item?["images"]?.AsArray();

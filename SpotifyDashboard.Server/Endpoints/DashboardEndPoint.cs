@@ -11,11 +11,13 @@ namespace SpotifyDashboard.Server.Endpoints
         {
             var group = builder.MapGroup("/serverApi/dashboard")
                 .WithTags("Dashboard")
-                .WithDescription("Retrieve Dashboard data for the components");
+                .WithDescription("Retrieve Dashboard data");
 
-            group.MapGet("/data", GetDashboardDataAsync);
+            group.MapGet("/data", GetDashboardDataAsync)
+                .WithDescription("Retrieve usefull data to pupolate the dashboard widgets");
 
-            group.MapGet("/config", GetDashboardConfigAsync);
+            group.MapGet("/config", GetDashboardConfigAsync)
+                .WithDescription("Retrieve the configuration data about the dashboard widgets");
 
             return builder;
         }

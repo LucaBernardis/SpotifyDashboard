@@ -6,7 +6,7 @@ namespace SpotifyDashboard.Server.Models
     public class Playlist
     {
         [JsonPropertyName("id")]
-        public string? Id { get; set; }
+        public string Id { get; set; } = "";
 
         [JsonPropertyName("name")]
         public string Name { get; set; } = "";
