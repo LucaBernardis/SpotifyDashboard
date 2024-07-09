@@ -6,6 +6,13 @@ namespace SpotifyDashboard.Server.Services
 {
     public static class Filter
     {
+
+        /// <summary>
+        /// Method to filter the Deserialization response and filter the albums data taking only the usefull ones
+        /// </summary>
+        /// <param name="jsonNode"> The Json Node to desesialize </param>
+        /// <param name="param"> The element of the Json Node to deserialize </param>
+        /// <returns></returns>
         public static List<Album> MapAlbums(JsonNode jsonNode, string param)
         {
 
@@ -37,6 +44,13 @@ namespace SpotifyDashboard.Server.Services
             return albumList;
         }
 
+
+        /// <summary>
+        /// Method to filter the Deserialization response and filter the tracks data taking only the usefull ones
+        /// </summary>
+        /// <param name="jsonNode"> The Json Node to desesialize </param>
+        /// <param name="param"> The element of the Json Node to deserialize </param>
+        /// <returns></returns>
         public static List<Track> MapTracks(JsonNode jsonNode, string param)
         {
             var tracksJson = jsonNode?[param]?.AsArray();
