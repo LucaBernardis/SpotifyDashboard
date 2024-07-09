@@ -87,15 +87,15 @@ namespace SpotifyDashboard.Server.Services
                 RecommendedTracks = recommendedTracks.Select(recommended => new ListItem
                 {
                     MainText = recommended.Name,
-                    Image = recommended.ImageUrl,
                     SecondText = recommended.Artist,
+                    Image = recommended.ImageUrl,
                     SpotifyUrl = recommended.SpotifyUrl
                 }),
                 UserTopTracks = userTopTracks.Select(track => new ListItem
                 {
                     MainText = track.Name,
-                    Image = track.ImageUrl,
                     SecondText = track.Artist,
+                    Image = track.ImageUrl,  
                     SpotifyUrl = track.SpotifyUrl
                 }),
                 UserPlaylists = userPlaylists.Select(playlist => new ListItem
