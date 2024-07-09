@@ -7,19 +7,19 @@ namespace SpotifyDashboard.Server.Models
     public class Track
     {
         [JsonPropertyName("artist")]
-        public string? Artist { get; set; }
+        public string Artist { get; set; } = "";
 
         [JsonPropertyName("name")]
-        public string? Name { get; set; }
+        public string Name { get; set; } = "";
 
         [JsonPropertyName("id")]
-        public string? Id { get; set; }
+        public string Id { get; set; } = "";
 
         [JsonPropertyName("image")]
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = "";
 
         [JsonPropertyName("spotifyUrl")]
-        public string? SpotifyUrl { get; set; }
+        public string SpotifyUrl { get; set; } = "";
 
 
         public Track()

@@ -63,16 +63,19 @@ namespace SpotifyDashboard.Server.Services
                 var owner = item?["owner"]?.AsObject();
                 if (owner!.Count > 0)
                 {
-                    playlist.Owner = owner["display_name"]?.ToString();
+                    playlist.Owner = owner["display_name"].ToString();
                 }
 
                 // Assign to the SpotifyUrl property the value of the external spotify link
                 var exturl = item? ["external_urls"]?.AsObject();
-                playlist.SpotifyUrl = exturl?["spotify"]?.ToString();
+                if(exturl != null)
+                    playlist.SpotifyUrl = exturl["spotify"].ToString();
 
                 // Assign to the ImageUrl property the value of the image url
                 var image = item?["images"]?.AsArray()[0]?.AsObject();
-                playlist.Image = image?["url"]?.ToString();
+
+                if(image != null)
+                    playlist.Image = image["url"].ToString();
 
             }
 

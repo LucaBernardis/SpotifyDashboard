@@ -6,16 +6,16 @@ namespace SpotifyDashboard.Server.Models
     public class Artist
     {
         [JsonPropertyName("genre")]
-        public string? Genres { get; set; }
+        public string Genres { get; set; } = "";
 
         [JsonPropertyName("id")]
-        public string? Id { get; set; }
+        public string Id { get; set; } = "";
 
         [JsonPropertyName("image")]
-        public string? ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = "";
 
         [JsonPropertyName("name")]
-        public string? Name { get; set; }
+        public string Name { get; set; } = "";
 
         public Artist()
         {

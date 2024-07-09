@@ -8,30 +8,34 @@ namespace SpotifyDashboard.Server.Models.Dashboard
     {
         [BsonElement("_id")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
 
         [BsonElement("widgetName")]
-        public string WidgetName { get; set; }
+        public string WidgetName { get; set; } = "";
 
         [BsonElement("widgetProperty")]
-        public string WidgetProperty { get; set; }
+        public string WidgetProperty { get; set; } = "";
 
         [BsonElement("widgetLabel")]
-        public string WidgetLabel { get; set; }
+        public string WidgetLabel { get; set; } = "";
 
         [BsonElement("type")]
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
 
         [BsonElement("width")]
-        public int Width { get; set; }
+        public int Width { get; set; } = 0;
 
         [BsonElement("heigth")]
-        public int Heigth { get; set; }
+        public int Heigth { get; set; } = 0;
 
         [BsonElement("position")]
-        public string Position { get; set; }
+        public string Position { get; set; } = "";
 
 
+        public WidgetComponent()
+        {
+            
+        }
 
         public WidgetComponent(string name)
         {
