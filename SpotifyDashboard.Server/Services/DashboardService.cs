@@ -4,7 +4,10 @@ using System.Net.Http.Headers;
 
 namespace SpotifyDashboard.Server.Services
 {
-    // Passo 2
+    /// <summary>
+    /// <para>Service that manage and the gather the data retrieved by the api calls</para>
+    /// <remarks>All the other services excepted <see cref="ConfigService"/> are a partial class of this service</remarks>
+    /// </summary>
     public partial class DashboardService
     {
         private readonly HttpClient _httpClient;
@@ -26,7 +29,7 @@ namespace SpotifyDashboard.Server.Services
         /// The access_token value retrieved after the authentication 
         /// from the angular page, without it you are unauthorized to make any api call
         /// </param>
-        /// <returns> An object that contains the result of all the usefull data from the other sevrices methods </returns>
+        /// <returns> A <see cref="Dashboard"/> object </returns>
         public async Task<Dashboard> GetDashboardData(string token)
         {
             // General procedure to get the access token value

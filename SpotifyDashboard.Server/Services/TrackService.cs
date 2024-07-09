@@ -1,6 +1,4 @@
 ﻿using SpotifyDashboard.Server.Models;
-using System.Net.Http.Headers;
-using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace SpotifyDashboard.Server.Services
@@ -9,9 +7,9 @@ namespace SpotifyDashboard.Server.Services
     {
 
         /// <summary>
-        /// Method to get the top tracks of the current authenticated user
+        /// Method to get the top <see cref="Track"/>s of the current authenticated user
         /// </summary>
-        /// <returns> A list of the user's favourite tracks with their data </returns>
+        /// <returns> A <see cref="List{T}"/> of the user's favourite <see cref="Track"/> with their data </returns>
         public async Task<IEnumerable<Track>> GetTopTenSongs()
         {
             // Http call to the spotify api address
@@ -27,14 +25,12 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Method to get a list of recommended tracks basing the request on the favourite artist, his genre and his best song
-        /// ( U can choose any artist, song and genre. This implementation take this parameters 
-        /// just because its easier to manage with the other existing api calls )
+        /// Method to get a list of recommended <see cref="Track"/> basing the request on the favourite <see cref="Artist"/>, his genre and his best song
         /// </summary>
-        /// <param name="seedArtist"> The query parameter that containes the artist id value </param>
-        /// <param name="seedGenres"> The query parameter that contains the artist main genre </param>
-        /// <param name="seedTrack"> The query parameter that contains the track id value </param>
-        /// <returns></returns>
+        /// <param name="seedArtist"> The query parameter that containes the <see cref="Artist"/> id value </param>
+        /// <param name="seedGenres"> The query parameter that contains the <see cref="Artist"/> main genre </param>
+        /// <param name="seedTrack"> The query parameter that contains the <see cref="Track"/> id value </param>
+        /// <returns> a <see cref="List{T}"/> of recommended <see cref="Track"/> </returns>
         public async Task<IEnumerable<Track>> GetRecommendedSongs(string seedArtist, string seedGenres, string seedTrack)
         {
             // Building the query parameter with the values passed in the request call parameters
