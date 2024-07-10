@@ -5,19 +5,19 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build-server
 WORKDIR /app
 
 # Copy the server project file
-COPY SpotifyDashboard.Server/SpotifyDashboard.Server.csproj SpotifyDashboard.Server/
+COPY SpotifyDashboard.Server/SpotifyDashboard.Server.csproj .
 
 # Restore NuGet packages
 RUN dotnet restore
 
 # Build the server project
-RUN dotnet build -c Release SpotifyDashboard.Server
+RUN dotnet build -c Release SpotifyDashboard.Server.csproj
 
 # Publish the server project
-RUN dotnet publish -c Release -o out SpotifyDashboard.Server
+RUN dotnet publish -c Release -o out SpotifyDashboard.Server.csproj
 
 # Build stage for the frontend
-FROM node:18 as build-frontend
+FROM node:20 as build-frontend
 
 # Set the working directory to /app
 WORKDIR /app
@@ -34,7 +34,7 @@ RUN npm install
 COPY SpotifyDashboard.Web/. .
 
 # Build the frontend project
-RUN npm run build
+RUN npm run build --prod
 
 # Final stage for the runtime environment
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
