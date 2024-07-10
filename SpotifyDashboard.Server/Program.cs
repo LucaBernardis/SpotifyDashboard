@@ -28,12 +28,8 @@ if (app.Environment.IsDevelopment())
         app.AllowAnyHeader();
     });
 
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
