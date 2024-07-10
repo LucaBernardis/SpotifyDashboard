@@ -45,4 +45,4 @@ app.MapControllers();
 app.MapDashboardEndPoint(); // This Endpoint manage all the methods calls to make the widget on the dashboard work
 
 
-await app.RunAsync();
+app.Run();

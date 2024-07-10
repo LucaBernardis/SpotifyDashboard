@@ -33,7 +33,7 @@ namespace SpotifyDashboard.Server.Services
             if (artist != null)
             {
                 var images = jObj?["items"]?[0]?["images"]?.AsArray();
-                artist.ImageUrl = images!.First()?["url"]?.ToString();
+                artist.ImageUrl = images![0]?["url"]?.ToString();
             }
 
             return artist!;
