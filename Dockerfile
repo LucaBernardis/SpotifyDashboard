@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0.100 as build-server
 WORKDIR /app
 
 # Copy the Server project files
-COPY . /app
+COPY SpotifyDashboard.Server/. /app/SpotifyDashboard.Server/
 
 # Navigate into the Server directory
 WORKDIR /app/SpotifyDashboard.Server
@@ -30,7 +30,7 @@ FROM node:20 as build-frontend
 WORKDIR /app
 
 # Copy the Web project files
-COPY . /app
+COPY SpotifyDashboard.Web/. /app/SpotifyDashboard.Web/
 
 # Navigate into the Web directory
 WORKDIR /app/SpotifyDashboard.Web
