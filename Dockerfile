@@ -5,13 +5,17 @@ FROM mcr.microsoft.com/dotnet/core/sdk:6.0 as build-server
 WORKDIR /app
 
 # Copy the entire SpotifyDashboard directory
-COPY . .
+COPY..
 
 # Navigate into the Server directory
 WORKDIR /app/SpotifyDashboard.Server
 
 # Restore NuGet packages
 RUN dotnet restore
+
+# Add MongoDB dependency
+RUN dotnet add package MongoDB.Bson
+RUN dotnet add package MongoDB.Driver
 
 # Build the server project
 RUN dotnet build -c Release SpotifyDashboard.Server.csproj
@@ -26,7 +30,7 @@ FROM node:20 as build-frontend
 WORKDIR /app
 
 # Copy the entire SpotifyDashboard directory
-COPY . .
+COPY..
 
 # Navigate into the Web directory
 WORKDIR /app/SpotifyDashboard.Web
@@ -44,13 +48,18 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:6.0
 WORKDIR /app
 
 # Copy the published server project
-COPY --from=build-server /app/SpotifyDashboard.Server/out .
+COPY --from=build-server /app/SpotifyDashboard.Server/out.
 
 # Copy the built frontend project
-COPY --from=build-frontend /app/SpotifyDashboard.Web/dist .
+COPY --from=build-frontend /app/SpotifyDashboard.Web/dist.
 
 # Expose the port for the server
 EXPOSE 80
+
+# Set environment variables for MongoDB connection
+ENV MONGODB_URI=mongodb://localhost:27017/
+ENV MONGODB_DB=Spotify
+ENV MONGODB_COLLECTION=Tiles
 
 # Run the server when the container starts
 CMD ["dotnet", "SpotifyDashboard.Server.dll"]
