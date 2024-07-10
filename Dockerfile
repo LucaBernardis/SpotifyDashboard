@@ -1,5 +1,5 @@
 # Build stage for the server
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build-server
+FROM mcr.microsoft.com/dotnet/core/sdk:6.0 as build-server
 
 # Set the working directory to /app
 WORKDIR /app
@@ -37,7 +37,7 @@ COPY SpotifyDashboard.Web/. .
 RUN npm run build --prod
 
 # Final stage for the runtime environment
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/core/aspnet:6.0
 
 # Set the working directory to /app
 WORKDIR /app
