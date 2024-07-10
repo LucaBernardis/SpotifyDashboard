@@ -1,5 +1,5 @@
 # Build stage for the server
-FROM mcr.microsoft.com/dotnet/core/sdk:6.0 as build-server
+FROM mcr.microsoft.com/dotnet/sdk:6.0 as build-server
 
 # Set the working directory to /app
 WORKDIR /app
