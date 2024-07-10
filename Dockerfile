@@ -4,8 +4,11 @@ FROM mcr.microsoft.com/dotnet/core/sdk:6.0 as build-server
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the server project file
-COPY SpotifyDashboard.Server/SpotifyDashboard.Server.csproj .
+# Copy the entire SpotifyDashboard directory
+COPY . .
+
+# Navigate into the Server directory
+WORKDIR /app/SpotifyDashboard.Server
 
 # Restore NuGet packages
 RUN dotnet restore
@@ -22,16 +25,14 @@ FROM node:20 as build-frontend
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the frontend project files
-COPY SpotifyDashboard.Web/package*.json ./
-COPY SpotifyDashboard.Web/tsconfig.json ./
-COPY SpotifyDashboard.Web/angular.json ./
+# Copy the entire SpotifyDashboard directory
+COPY . .
+
+# Navigate into the Web directory
+WORKDIR /app/SpotifyDashboard.Web
 
 # Install npm dependencies
 RUN npm install
-
-# Copy the rest of the frontend project files
-COPY SpotifyDashboard.Web/. .
 
 # Build the frontend project
 RUN npm run build --prod
@@ -43,10 +44,10 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:6.0
 WORKDIR /app
 
 # Copy the published server project
-COPY --from=build-server /app/out .
+COPY --from=build-server /app/SpotifyDashboard.Server/out .
 
 # Copy the built frontend project
-COPY --from=build-frontend /app/dist .
+COPY --from=build-frontend /app/SpotifyDashboard.Web/dist .
 
 # Expose the port for the server
 EXPOSE 80
