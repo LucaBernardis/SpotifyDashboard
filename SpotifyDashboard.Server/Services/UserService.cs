@@ -10,7 +10,7 @@ namespace SpotifyDashboard.Server.Services
         /// <summary>
         /// Method to get all the data related to the current authenticated user
         /// </summary>
-        /// <returns> A <see cref="User"/> object with the values usefull to the dashboard component </returns>
+        /// <returns> A <see cref="User"/> object </returns>
         public async Task<User> GetUserData()
         {
             // Http call to the spotify api address

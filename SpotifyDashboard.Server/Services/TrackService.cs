@@ -9,8 +9,8 @@ namespace SpotifyDashboard.Server.Services
         /// <summary>
         /// Method to get the top <see cref="Track"/>s of the current authenticated user
         /// </summary>
-        /// <returns> A <see cref="List{T}"/> of the user's favourite <see cref="Track"/> with their data </returns>
-        public async Task<IEnumerable<Track>> GetTopTenSongs()
+        /// <returns> A <see cref="List{T}"/> of <see cref="Track"/> </returns>
+        public async Task<IEnumerable<Track>> GetTopTracks()
         {
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync("v1/me/top/tracks");
@@ -25,13 +25,13 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Method to get a list of recommended <see cref="Track"/> basing the request on the favourite <see cref="Artist"/>, his genre and his best song
+        /// Method to get a list of recommended <see cref="Track"/> basing the request on the favourite <see cref="Artist"/>, his genre and his best track
         /// </summary>
         /// <param name="seedArtist"> The query parameter that containes the <see cref="Artist"/> id value </param>
         /// <param name="seedGenres"> The query parameter that contains the <see cref="Artist"/> main genre </param>
         /// <param name="seedTrack"> The query parameter that contains the <see cref="Track"/> id value </param>
         /// <returns> a <see cref="List{T}"/> of recommended <see cref="Track"/> </returns>
-        public async Task<IEnumerable<Track>> GetRecommendedSongs(string seedArtist, string seedGenres, string seedTrack)
+        public async Task<IEnumerable<Track>> GetRecommendedTracks(string seedArtist, string seedGenres, string seedTrack)
         {
             // Building the query parameter with the values passed in the request call parameters
             var queryParams = $"seed_artists={seedArtist}&seed_genres={Uri.EscapeDataString(seedGenres)}&seed_tracks={seedTrack}";

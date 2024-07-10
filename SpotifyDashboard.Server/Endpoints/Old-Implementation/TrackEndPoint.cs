@@ -34,7 +34,7 @@ namespace SpotifyDashboard.Server.Endpoints
         /// <returns> A list of the user's favourite tracks </returns>
         private static async Task<IEnumerable<Track>> GetTopTenSongsAsync([FromHeader(Name = "Authorization")] string token, DashboardService data)
         {
-            var tracks = await data.GetTopTenSongs();
+            var tracks = await data.GetTopTracks();
             return tracks;
         }
 
@@ -55,7 +55,7 @@ namespace SpotifyDashboard.Server.Endpoints
             DashboardService data
             )
         {
-            var recommendedTracks = await data.GetRecommendedSongs(seedArtist, seedGenres, seedTracks);
+            var recommendedTracks = await data.GetRecommendedTracks(seedArtist, seedGenres, seedTracks);
             return recommendedTracks;
         }
 

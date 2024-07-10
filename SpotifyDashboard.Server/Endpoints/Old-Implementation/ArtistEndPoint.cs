@@ -42,7 +42,7 @@ namespace SpotifyDashboard.Server.Endpoints
         }
 
         /// <summary>
-        /// EndPoint to call the GetAlbums method
+        /// EndPoint to call the GetArtistAlbums method
         /// </summary>
         /// <param name="token"> The access_token value </param>
         /// <param name="id"> The value of the artist id </param>
@@ -50,7 +50,7 @@ namespace SpotifyDashboard.Server.Endpoints
         /// <returns> A list of albums </returns>
         private static async Task<IEnumerable<Album>> GetArtistAlbums([FromHeader(Name = "Authorization")] string token, [FromRoute] string id, DashboardService data)
         {
-            var albums = await data.GetAlbums(id);
+            var albums = await data.GetArtistAlbums(id);
             return albums;
         }
 
