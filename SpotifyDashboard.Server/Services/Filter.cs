@@ -4,15 +4,18 @@ using System.Text.Json.Nodes;
 
 namespace SpotifyDashboard.Server.Services
 {
+    /// <summary>
+    /// Provide the methods to filter the <see cref="JsonSerializer.Deserialize{TValue}(string, JsonSerializerOptions?)"/> response object
+    /// </summary>
     public static class Filter
     {
 
         /// <summary>
-        /// Method to filter the Deserialization response and filter the albums data taking only the usefull ones
+        /// Filters the <see cref="JsonSerializer.Deserialize{TValue}(string, JsonSerializerOptions?)"/> response and fill the <see cref="Album"/> data taking only the needed ones
         /// </summary>
-        /// <param name="jsonNode"> The Json Node to desesialize </param>
-        /// <param name="param"> The element of the Json Node to deserialize </param>
-        /// <returns></returns>
+        /// <param name="jsonNode"> The Json Node to deserialize </param>
+        /// <param name="param"> The object of the Json Node to deserialize </param>
+        /// <returns> A <see cref="List{T}"/> of filtered <see cref="Album"/> objects with only the necessary data </returns>
         public static List<Album> MapAlbums(JsonNode jsonNode, string param)
         {
 
@@ -46,11 +49,11 @@ namespace SpotifyDashboard.Server.Services
 
 
         /// <summary>
-        /// Method to filter the Deserialization response and filter the tracks data taking only the usefull ones
+        /// Filters the <see cref="JsonSerializer.Deserialize{TValue}(string, JsonSerializerOptions?)"/> response and fill the <see cref="Track"/> data taking only the needed ones
         /// </summary>
-        /// <param name="jsonNode"> The Json Node to desesialize </param>
-        /// <param name="param"> The element of the Json Node to deserialize </param>
-        /// <returns></returns>
+        /// <param name="jsonNode"> The Json Node to deserialize </param>
+        /// <param name="param"> The object of the Json Node to deserialize </param>
+        /// <returns> A <see cref="List{T}"/> of filtered <see cref="Track"/> objects with only the necessary data</returns>
         public static List<Track> MapTracks(JsonNode jsonNode, string param)
         {
             var tracksJson = jsonNode?[param]?.AsArray();

@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 namespace SpotifyDashboard.Server.Services
 {
     /// <summary>
-    /// <para>Service that manage and the gather the data retrieved by the api calls</para>
+    /// <para>Provide the method <see cref="GetDashboardData(string)"/> to gather the data retrieved by the api calls</para>
     /// <remarks>All the other services excepted <see cref="ConfigService"/> are a partial class of this service</remarks>
     /// </summary>
     public partial class DashboardService
@@ -17,17 +17,13 @@ namespace SpotifyDashboard.Server.Services
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(SpotifyApi);
-
         }
 
         /// <summary>
-        /// This method has the task of retrieving all the data from the other services
-        /// and combine the results in a single object that contains for each method only
-        /// the data usefull to make the angular component work properly
+        /// Retrieve all the data from the services and combine the results in a single <see cref="Dashboard"/> object
         /// </summary>
         /// <param name="token">
-        /// The access_token value retrieved after the authentication 
-        /// from the angular page, without it you are unauthorized to make any api call
+        /// The access_token value retrieved after the authentication from the angular page, without it you are unauthorized to make any api call
         /// </param>
         /// <returns> A <see cref="Dashboard"/> object </returns>
         public async Task<Dashboard> GetDashboardData(string token)
@@ -40,7 +36,7 @@ namespace SpotifyDashboard.Server.Services
             // Artist service methods
             var topArtist = await GetTopArtist();
             var topArtistTopTrack = await GetArtistTopTrack(topArtist.Id);
-            var artistAlbums = await GetAlbums(topArtist.Id); // IEnumerable
+            var artistAlbums = await GetArtistAlbums(topArtist.Id); // IEnumerable
             var newReleases = await GetNewReleases(); // IEnumerable
 
             // User service methods
@@ -48,8 +44,8 @@ namespace SpotifyDashboard.Server.Services
             var userPlaylists = await GetUserPlaylist(); // IEnumerable
 
             // Track service methods
-            var userTopTracks = await GetTopTenSongs(); // IEnumerable
-            var recommendedTracks = await GetRecommendedSongs(topArtist.Id, topArtist.Genres, topArtistTopTrack.Id); // IEnumerable
+            var userTopTracks = await GetTopTracks(); // IEnumerable
+            var recommendedTracks = await GetRecommendedTracks(topArtist.Id, topArtist.Genres, topArtistTopTrack.Id); // IEnumerable
 
             // Return Dashboard object that groups the returns of all the methods with the data i ned
             return new Dashboard

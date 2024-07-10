@@ -5,7 +5,7 @@ using SpotifyDashboard.Server.Models.Dashboard;
 namespace SpotifyDashboard.Server.Services
 {
     /// <summary>
-    /// Service to manage the configuration data saved on mongodb
+    /// Service to manage the <see cref="WidgetComponent"/> configuration data saved on mongodb
     /// </summary>
     public class ConfigService
     {
@@ -17,9 +17,9 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Method to retrieve all the data about the dashboard configuration saved on mongodb
+        /// Method to retrieve all the data about the <see cref="WidgetComponent"/> configuration saved on mongodb
         /// </summary>
-        /// <returns> A <see cref="List{T}"/> of <see cref="WidgetComponent"/> containing all the properties of the widget elements of the collection </returns>
+        /// <returns> A <see cref="List{T}"/> of <see cref="WidgetComponent"/> </returns>
         public async Task<List<WidgetComponent>> GetDashboardConfig()
         {
             var db = _client.GetDatabase("Spotify");

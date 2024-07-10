@@ -7,8 +7,7 @@ namespace SpotifyDashboard.Server.Services
     public partial class DashboardService
     {
         /// <summary>
-        /// Method to get the data of the user's favourite artist trough
-        /// an http request to the dedicated spotify api address 
+        /// Retrieve the user's favourite artist 
         /// </summary>
         /// <returns> An <see cref="Artist"/> object with the usefull data about the user's favourite artist </returns>
         public async Task<Artist> GetTopArtist()
@@ -34,14 +33,14 @@ namespace SpotifyDashboard.Server.Services
             if (artist != null)
             {
                 var images = jObj?["items"]?[0]?["images"]?.AsArray();
-                artist.ImageUrl = images!.First()?["url"]?.ToString();
+                artist.ImageUrl = images![0]?["url"]?.ToString();
             }
 
             return artist!;
         }
 
         /// <summary>
-        /// Method to get the most famous track of the user's favourite artist  <seealso cref="GetTopArtist"/>
+        /// Retrieve the most famous track of the user's favourite artist <seealso cref="GetTopArtist"/>
         /// </summary>
         /// <param name="artistId"> The id of the artist you need to pass in the api call to get its related most famouse song </param>
         /// <returns> A <see cref="Track"/> object with the artist's most famous track data </returns>
@@ -60,11 +59,11 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Method to get all the albums the artist made or is part of
+        /// Retrieve all the albums the artist made or is part of
         /// </summary>
         /// <param name="artistId"> The id of the artist you need to pass in the api call to get all its related albums </param>
         /// <returns> A <see cref="List{T}"/> of the <see cref="Album"/> the artist made or is part of and the related usefull data </returns>
-        public async Task<IEnumerable<Album>> GetAlbums(string artistId)
+        public async Task<IEnumerable<Album>> GetArtistAlbums(string artistId)
         {
             // Http call to the spotify api address
             using HttpResponseMessage response = await _httpClient.GetAsync($"/v1/artists/{artistId}/albums");
