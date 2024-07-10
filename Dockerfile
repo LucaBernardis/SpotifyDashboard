@@ -42,7 +42,7 @@ RUN npm install
 RUN npm run build --prod
 
 # Final stage for the runtime environment
-FROM mcr.microsoft.com/dotnet/core/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/core/aspnet:6.0.10
 
 # Set the working directory to /app
 WORKDIR /app
