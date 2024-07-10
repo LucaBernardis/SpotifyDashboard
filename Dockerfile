@@ -5,8 +5,8 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0.100 as build-server
 WORKDIR /app
 
 # Copy the Server project files
-COPY SpotifyDashboard.Server/*.csproj .
-COPY SpotifyDashboard.Server/*.cs .
+COPY SpotifyDashboard.Server/*.csproj.
+COPY SpotifyDashboard.Server/*.cs.
 
 # Navigate into the Server directory
 WORKDIR /app/SpotifyDashboard.Server
@@ -31,9 +31,10 @@ FROM node:20 as build-frontend
 WORKDIR /app
 
 # Copy the Web project files
-COPY SpotifyDashboard.Web/*.csproj .
-COPY SpotifyDashboard.Web/*.cs .
-COPY SpotifyDashboard.Web/package*.json .
+COPY SpotifyDashboard.Web/package*.json.
+COPY SpotifyDashboard.Web/tsconfig.json.
+COPY SpotifyDashboard.Web/angular.json.
+COPY SpotifyDashboard.Web/src.
 
 # Navigate into the Web directory
 WORKDIR /app/SpotifyDashboard.Web
@@ -51,10 +52,10 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:6.0
 WORKDIR /app
 
 # Copy the published server project
-COPY --from=build-server /app/SpotifyDashboard.Server/out .
+COPY --from=build-server /app/SpotifyDashboard.Server/out.
 
 # Copy the built frontend project
-COPY --from=build-frontend /app/SpotifyDashboard.Web/dist .
+COPY --from=build-frontend /app/SpotifyDashboard.Web/dist.
 
 # Expose the port for the server
 EXPOSE 80
