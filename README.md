@@ -11,24 +11,30 @@ This application use the Spotify-Api to retreive data and manipulate them to get
 **Server:** C# minimal Api, MongoDb
 
 ____
-The widgets that this dashboard contains are the following:
+The components that this dashboard contains are the following:
 
-- user-data
-- top-artist
-- user-top-songs
-- top-artist-albums
-- top-artist-top-track
-- recommended-tracks
-    - Limited api requestes due to limited parameters being passed
-- new-releases
-- user-playlists
-- song-player ( to implement it you need spotify premium )
+- card (contains):
+    - User favourite artist
+    - Favourite artist best track
+- list (contains):
+    - User top tracks
+    - Recommended tracks
+    - User playlists
+- header (contains):
+    - Data about the current user
+- multi-list (contains):
+    - New Releases
+    - Artist Albums
+
+### This components are made to be re-usable and resizable editing only some data on the mongodb 
 
 #### Authentication Method
 
 On the [Spotify-Api Authorization Documentation](https://developer.spotify.com/documentation/web-api/concepts/authorization) you will find four different types of OAuth flow to follow. Choose wisely wich authorization flow to use because they all have some differences between one another. This application uses the Implicit Grant Authorization flow, it may not be the best but it works for the calls i need.
 
 
+### Disclaimer
+#### Without a proper mongo database with relative collection the dashboard would not render any component.
 
 
 ## API Reference
