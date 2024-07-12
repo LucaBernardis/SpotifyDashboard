@@ -30,7 +30,6 @@ COPY SpotifyDashboard.Web ./
 RUN echo "Install Node.js and dependencies"
 # Install Node.js and dependencies
 RUN npm install -g @angular/cli
-WORKDIR /src/app
 RUN npm install
 
 RUN echo "Build and cp web project files"
