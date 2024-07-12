@@ -35,5 +35,5 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   } else {
     // If the request doesn't contain "serverApi", just pass it through
     return next(req);
-  }
+  } 
 };
