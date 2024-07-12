@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /App
 COPY --from=build-env /App/out .
-ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]
+
 
 # Build the web project
 FROM node:alpine AS web-env
@@ -30,5 +30,6 @@ RUN npm install
 EXPOSE 4200
 
 # Run web server
-CMD ["ng", "serve"]
+CMD ["npm", "serve"]
 
+ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]
