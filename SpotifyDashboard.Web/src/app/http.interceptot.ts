@@ -1,25 +1,16 @@
-import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
-import { enableProdMode, isDevMode } from '@angular/core';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Check if your http request containts "serverApi"
   if (req.url.includes('serverApi')) {
 
-    let authReq: HttpRequest<unknown>;
-    if (isDevMode()) {
       // If its true it intercepts the call and add the backend address as prefix
-      authReq = req.clone({
+      const authReq = req.clone({
         url: `${environment.serverUrl}${req.url}`,
       });
-    }
-    else {
-       authReq = req.clone({
-        url: `https://localhost:7199${req.url}`,
-      });
-    }
 
     // Pass the cloned request with the updated header to the next handler
     return next(authReq).pipe(
