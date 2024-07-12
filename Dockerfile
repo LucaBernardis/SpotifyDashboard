@@ -26,7 +26,7 @@ RUN npm install -g @angular/cli
 RUN npm install
 
 # Build and copy web project files
-RUN npm run build-production
+RUN npm build-production
 RUN cp -a dist/* /App/wwwroot/
 
 # Combine the server and web projects
