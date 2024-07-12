@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
-import * as environment from '../environments/environment';
+import { environment } from '../environments/environment';
+import { enableProdMode, isDevMode } from '@angular/core';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 
@@ -8,14 +9,14 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.url.includes('serverApi')) {
 
     let authReq: HttpRequest<unknown>;
-    if (!environment.environment.production) {
+    if (isDevMode()) {
       // If its true it intercepts the call and add the backend address as prefix
       authReq = req.clone({
-        url: `${environment.environment.serverUrl}${req.url}`,
+        url: `${environment.serverUrl}${req.url}`,
       });
     }
     else {
-      authReq = req.clone({
+       authReq = req.clone({
         url: `https://localhost:7199${req.url}`,
       });
     }
