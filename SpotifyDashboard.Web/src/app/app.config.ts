@@ -2,7 +2,7 @@ import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { httpInterceptor } from './http.interceptot';
+import { httpInterceptor } from './http.interceptor';
 import { SpotifyAuthService } from './services/spotify-auth.service';
 import { tap } from 'rxjs';
 import { DashboardService } from './services/dashboard.service';
