@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /App
 COPY --from=build-env /App/out .
-
+ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]
 
 # Build the web project
 FROM node:alpine AS web-env
@@ -22,18 +22,18 @@ WORKDIR /src/app
 # Copy web project files
 COPY SpotifyDashboard.Web ./
 
-# Build web project
-ENV ENVIRONMENT=production
-RUN npm run build-$ENVIRONMENT
+# Install dependencies
+RUN npm install -g @angular/cli
+RUN npm install
 
-# Copy built web files to server
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final-env
-WORKDIR /App
-COPY --from=web-env /src/app/dist .
+# Build the web project
+RUN npm run build --prod
 
+# Copy built files to the correct location
+COPY --from=web-env /src/app/dist /App/wwwroot
+
+# Expose port for web server
 EXPOSE 4200
 
-ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]
-
-
-ENV ENVIRONMENT=production
+# Run web server
+CMD ["ng", "serve"]
