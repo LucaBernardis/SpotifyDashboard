@@ -22,11 +22,13 @@ WORKDIR /usr/src/app
 # Copy web project files
 COPY SpotifyDashboard.Web ./
 
-
+# Install dependencies
+RUN npm install -g @angular/cli
+RUN npm install
 
 # Expose port for web server
 EXPOSE 4200
 
 # Run web server
-CMD ["npm", "start"]
+CMD ["ng", "serve"]
 
