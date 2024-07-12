@@ -17,7 +17,7 @@ ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]
 
 # Build the web project
 FROM node:alpine AS web-env
-WORKDIR /usr/src/app
+WORKDIR /src/app
 
 # Copy web project files
 COPY SpotifyDashboard.Web ./
