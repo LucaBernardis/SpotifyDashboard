@@ -30,8 +30,7 @@ RUN npm install
 RUN npm run build --prod
 
 # Copy built files to the correct location
-COPY --from=web-env /src/app/dist /App/wwwroot
-
+COPY --from=web-env /src/app/dist ./
 # Expose port for web server
 EXPOSE 4200
 
