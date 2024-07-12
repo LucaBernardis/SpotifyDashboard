@@ -30,20 +30,5 @@ RUN npm install
 EXPOSE 4200
 
 # Run web server
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["npm", "start", "--host", "0.0.0.0"]
 
-# Create a final image that combines both server and web projects
-FROM ubuntu:latest
-WORKDIR /app
-
-# Copy server files
-COPY --from=0 /App /app/server
-
-# Copy web files
-COPY --from=1 /usr/src/app /app/web
-
-# Expose ports for both server and web
-EXPOSE 80 4200
-
-# Run both server and web projects
-CMD ["dotnet", "SpotifyDashboard.Server.dll", "&", "ng", "serve", "--host", "0.0.0.0"]
