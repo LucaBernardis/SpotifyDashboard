@@ -29,6 +29,8 @@ RUN npm install
 # Build the web project
 RUN npm run build --prod
 
+# Copy built files from web-env to final runtime environment
+COPY --from=web-env /src/app/dist /App/wwwroot
 
 # Expose port for web server
 EXPOSE 4200
