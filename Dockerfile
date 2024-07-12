@@ -31,7 +31,7 @@ RUN npm install
 
 RUN echo "Buil and cp web project files"
 # Build and copy web project files
-RUN npm build-production
+RUN npm run build-production
 RUN cp -a dist/* /App/wwwroot/
 
 RUN "Combine the server and the web project"
