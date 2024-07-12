@@ -10,7 +10,7 @@ RUN dotnet restore
 # Build and publish a release
 RUN dotnet publish -c Release -o out
 
-EXPOSE 8080
+EXPOSE 8080 
 
 RUN echo "Build runtime image for server"
 # Build runtime image for server
