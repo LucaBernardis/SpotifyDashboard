@@ -23,6 +23,7 @@ WORKDIR /src/app
 COPY SpotifyDashboard.Web ./
 
 # Build web project
+ENV ENVIRONMENT=production
 RUN npm run build-$ENVIRONMENT
 
 # Copy built web files to server
@@ -33,3 +34,6 @@ COPY --from=web-env /src/app/dist .
 EXPOSE 4200
 
 ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]
+
+
+ENV ENVIRONMENT=production
