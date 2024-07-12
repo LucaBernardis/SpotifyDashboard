@@ -18,26 +18,28 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /App
 COPY --from=build-env /App/out .
 
-RUn echo "Build the web project"
+RUN echo "Build the web project"
 # Build the web project
 FROM node:alpine AS web-env
 WORKDIR /src/app
 
-RUn echo "Copy web project files"
+RUN echo "Copy web project files"
 # Copy web project files
 COPY SpotifyDashboard.Web ./
 
-Run echo "Install dependencies"
-# Install dependencies
+RUN echo "Install Node.js and dependencies"
+# Install Node.js and dependencies
 RUN npm install -g @angular/cli
+WORKDIR /src/app
 RUN npm install
 
 RUN echo "Build and cp web project files"
 # Build and copy web project files
+WORKDIR /src/app
 RUN npm run build-production
 RUN cp -a dist/* /App/
 
-RUN echo "Combine the server and the eb project"
+RUN echo "Combine the server and the web project"
 # Combine the server and web projects
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /App
