@@ -10,6 +10,8 @@ RUN dotnet restore
 # Build and publish a release
 RUN dotnet publish -c Release -o out
 
+EXPOSE 8080
+
 RUN echo "Build runtime image for server"
 # Build runtime image for server
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
