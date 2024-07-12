@@ -30,6 +30,6 @@ RUN npm install
 EXPOSE 4200
 
 # Run web server
-CMD ["npm", "serve"]
+CMD ["ng", "serve"]
 
 ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]
