@@ -22,6 +22,7 @@ COPY --from=build-env /App/out .
 RUN echo "Build the web project"
 # Build the web project
 FROM node:alpine AS web-env
+
 WORKDIR /src/app
 
 RUN echo "Copy web project files"
