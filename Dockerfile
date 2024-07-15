@@ -10,7 +10,8 @@ RUN dotnet restore
 # Build and publish a release
 RUN dotnet publish -c Release -o out
 
-EXPOSE 8080 
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
 
 RUN echo "Build runtime image for server"
 # Build runtime image for server
@@ -21,6 +22,7 @@ COPY --from=build-env /App/out .
 RUN echo "Build the web project"
 # Build the web project
 FROM node:alpine AS web-env
+
 WORKDIR /src/app
 
 RUN echo "Copy web project files"
