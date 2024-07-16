@@ -15,7 +15,12 @@ builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<ConfigService>();
 builder.Services.AddCors();
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient("mongodb://localhost:27017/")); // Add connection string to the mongodb
+
+var configuration = builder.Configuration;
+
+var connectionString = configuration.GetConnectionString("MongoString");
+
+builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString)); // Add connection string to the mongodb
 
 var app = builder.Build();
 
@@ -32,6 +37,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+if (app.Environment.IsProduction())
+    app.UseStaticFiles();
 
 app.UseAuthorization();
 

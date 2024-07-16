@@ -26,8 +26,8 @@ namespace SpotifyDashboard.Server.Services
             // Assign to the Genres property the first value of the genres array
             var genres = items?[0]?["genres"]?.AsArray();
 
-            if(genres != null)
-                artist!.Genres = genres[0].ToString();
+            if (genres!.Count > 0)
+                artist!.Genres = genres[0]!.ToString();
 
             // Assign to the ImageUrl property the value of the image array url
             if (artist != null)
@@ -80,7 +80,7 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Method to retrieve spotify new releases, its a list of albums with all the related data, 
+        /// Retrieve spotify new releases, its a list of albums with all the related data, 
         /// like total tracks, data about the artist and external links to the spotify page
         /// </summary>
         /// <returns> A <see cref="List{T}"/> of <see cref="Album"/> </returns>
