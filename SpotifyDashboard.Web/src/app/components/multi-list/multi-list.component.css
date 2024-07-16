@@ -63,7 +63,6 @@
 .album-data {
     width: 60%;
     overflow-x: hidden;
-    text-wrap: nowrap;
     display: grid;
     text-align: left;
     height: 5vh;
@@ -112,7 +111,6 @@
     place-items: center;
     justify-content: space-evenly;
     overflow-x: hidden;
-    text-wrap: nowrap;
     cursor: pointer;
 }
 

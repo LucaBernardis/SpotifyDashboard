@@ -1,52 +1,36 @@
-# Build the server project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
-WORKDIR /App
-
-RUN echo "Copy everything"
+RUN echo "Build the server project"
+WORKDIR /BuildOutput
 # Copy everything
 COPY SpotifyDashboard.Server ./
 # Restore as distinct layers
 RUN dotnet restore
 # Build and publish a release
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -o out --no-restore
 
-EXPOSE 8080
-ENV ASPNETCORE_URLS=http://+:8080
-
-RUN echo "Build runtime image for server"
-# Build runtime image for server
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /App
-COPY --from=build-env /App/out .
-
-RUN echo "Build the web project"
-# Build the web project
 FROM node:alpine AS web-env
-
-WORKDIR /src/app
-
-RUN echo "Copy web project files"
-# Copy web project files
+RUN echo "Build the web project"
+WORKDIR /BuildOutput
+# Copy everything
 COPY SpotifyDashboard.Web ./
-
-RUN echo "Install Node.js and dependencies"
 # Install Node.js and dependencies
 RUN npm install -g @angular/cli
 RUN npm install
-
-RUN echo "Build and cp web project files"
 # Build and copy web project files
-WORKDIR /src/app
-RUN npm run build-production
-RUN cp -a dist/* /App/
+RUN npm run build
 
-RUN echo "Combine the server and the web project"
-# Combine the server and web projects
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
+RUN echo "Combine the server and the web project"
 WORKDIR /App
-COPY --from=build-env /App/out .
-COPY --from=web-env /src/app/ .
+COPY --from=build-env /BuildOutput/out .
+COPY --from=web-env /BuildOutput/dist/SpotifyDashboard.Web /App/wwwroot
 
-RUN echo "Set the entrypoint"
-# Set the entry point
+# Add connection to MongoDB on localhost
+#ENV MONGO_HOST=localhost
+#ENV MONGO_PORT=27017
+#ENV MONGO_DATABASE=Spotify
+#
+
+RUN echo "Set the entrypoints and ports"
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "SpotifyDashboard.Server.dll"]

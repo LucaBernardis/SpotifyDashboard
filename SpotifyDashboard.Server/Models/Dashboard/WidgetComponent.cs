@@ -6,6 +6,7 @@ namespace SpotifyDashboard.Server.Models.Dashboard
     /// <summary>
     /// <para>Represent the configuration of the widget, the configuration manage the way the widget is visualized on the dashboard.</para>
     /// <para>To change the configuration you have to change the widget properties on the related mongodb.</para>
+    /// <seealso cref="Services.ConfigService.GetDashboardConfig"/>
     /// </summary>
     public class WidgetComponent
     {
