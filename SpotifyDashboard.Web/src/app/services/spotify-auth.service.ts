@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { Injectable, isDevMode} from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class SpotifyAuthService {
   // Yo need to put yout clientId you found on the spotify dashboard page at spotify.dev
   // For more information visit https://developer.spotify.com/documentation/web-api
   private readonly clientId = '480eb2a6091f4a95892f638ade6228e5';
-  private readonly redirect_uri = 'http://localhost:4200/';
-
+  private readonly redirect_uri = 'http://localhost:4200';
+  private readonly prod_redirect_uri = 'http://localhost:8080/index.html';
 
   // Shared token value
   private accessToken: string | undefined;
@@ -23,6 +23,11 @@ export class SpotifyAuthService {
 
   // Method to retrieve the authCode
   getAuthCode(): string | undefined {
+
+    if(isDevMode())
+      var newUrl = this.redirect_uri
+    else
+      var newUrl = this.prod_redirect_uri
 
     // check if the user is already authenticated
     this.authenticationInProgress = true;
@@ -35,8 +40,10 @@ export class SpotifyAuthService {
       response_type: 'token',
       client_id: this.clientId,
       scope: scope,
-      redirect_uri: this.redirect_uri,
+      redirect_uri: newUrl
     });
+
+    console.log(params);
   
     const authUrl = `https://accounts.spotify.com/authorize?${params.toString()}`;
 

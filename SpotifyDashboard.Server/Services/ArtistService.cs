@@ -23,11 +23,11 @@ namespace SpotifyDashboard.Server.Services
             var artistJson = items?[0]?.ToJsonString();
             var artist = JsonSerializer.Deserialize<Artist>(artistJson!);
 
-            // Assign to the Genres property the first value of the genres array
+            // Assign to the Genre property the first value of the genres array
             var genres = items?[0]?["genres"]?.AsArray();
 
             if (genres!.Count > 0)
-                artist!.Genres = genres[0]!.ToString();
+                artist!.Genre = genres[0]!.ToString();
 
             // Assign to the ImageUrl property the value of the image array url
             if (artist != null)
