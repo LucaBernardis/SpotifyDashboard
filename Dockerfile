@@ -23,13 +23,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 RUN echo "Combine the server and the web project"
 WORKDIR /App
 COPY --from=build-env /BuildOutput/out .
-COPY --from=web-env /BuildOutput/dist/SpotifyDashboard.Web /App/wwwroot
-
-# Add connection to MongoDB on localhost
-#ENV MONGO_HOST=localhost
-#ENV MONGO_PORT=27017
-#ENV MONGO_DATABASE=Spotify
-#
+COPY --from=web-env /BuildOutput/dist/SpotifyDashboard.Web/browser /App/wwwroot
 
 RUN echo "Set the entrypoints and ports"
 EXPOSE 8080

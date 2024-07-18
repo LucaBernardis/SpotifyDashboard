@@ -6,7 +6,7 @@ namespace SpotifyDashboard.Server.Models
     public class Artist
     {
         [JsonPropertyName("genre")]
-        public string Genres { get; set; } = "";
+        public string Genre { get; set; } = "";
 
         [JsonPropertyName("id")]
         public string Id { get; set; } = "";
@@ -25,7 +25,7 @@ namespace SpotifyDashboard.Server.Models
         // Constructor for test method
         public Artist(string genre, string id, string image, string name)
         {
-            Genres = genre;
+            Genre = genre;
             Id = id;
             ImageUrl = image;
             Name = name;

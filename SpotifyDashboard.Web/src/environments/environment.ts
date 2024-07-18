@@ -1,3 +1,3 @@
 export const environment = {
-  serverUrl: "dashboard:8080"
+  serverUrl: "http://localhost:8080"
 };

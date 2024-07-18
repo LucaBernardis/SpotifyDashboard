@@ -45,7 +45,7 @@ namespace SpotifyDashboard.Server.Services
 
             // Track service methods
             var userTopTracks = await GetTopTracks(); // IEnumerable
-            var recommendedTracks = await GetRecommendedTracks(topArtist.Id, topArtist.Genres, topArtistTopTrack.Id); // IEnumerable
+            var recommendedTracks = await GetRecommendedTracks(topArtist.Id, topArtist.Genre, topArtistTopTrack.Id); // IEnumerable
 
             // Return Dashboard object that groups the returns of all the methods with the data i ned
             return new Dashboard
