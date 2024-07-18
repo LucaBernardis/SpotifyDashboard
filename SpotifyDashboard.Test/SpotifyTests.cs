@@ -10,7 +10,6 @@ using MongoDB.Driver;
 
 namespace SpotifyDashboard.Test;
 
-// Passo 1
 public class SpotifyTests
 {
 

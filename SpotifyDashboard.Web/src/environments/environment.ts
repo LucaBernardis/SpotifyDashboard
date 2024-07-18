@@ -1,3 +1,3 @@
 export const environment = {
-  serverUrl: "http://localhost:8080"
+  serverUrl: "https://site--dashboard--8f6hbsjgl6br.code.run"
 };
