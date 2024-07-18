@@ -48,7 +48,7 @@ export class SpotifyAuthService {
     const authUrl = `https://accounts.spotify.com/authorize?${params.toString()}`;
 
     // check if the user already authenticated
-    if(window.location.hash.toString() == null || window.location.hash.toString() == '') // if its not than it redirects to the authentication page
+    if(window.location.hash.toString() == null || window.location.hash.toString() == '') // if its not, than it redirects the user to the authentication page
       window.location.href = authUrl;
     const urlParams = new URLSearchParams(window.location.hash);
 
