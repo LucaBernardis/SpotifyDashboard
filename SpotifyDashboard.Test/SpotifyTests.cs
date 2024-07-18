@@ -220,7 +220,7 @@ public class SpotifyTests
         // Create some test data (replace with your actual data)
         var testData = new List<WidgetComponent>
         {
-            new WidgetComponent ("pippo"),
+            new WidgetComponent("pippo")
         };
 
         // Set up the mock cursor

@@ -46,7 +46,7 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// If the database is empty, it insert the standard widget with their properties on the mongo db
+        /// It insert the standard <see cref="WidgetComponent"/> with their properties on the mongo db
         /// <seealso cref="GetDashboardConfig"/>
         /// </summary>
         /// <returns></returns>
