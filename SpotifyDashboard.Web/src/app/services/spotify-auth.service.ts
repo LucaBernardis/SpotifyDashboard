@@ -12,7 +12,7 @@ export class SpotifyAuthService {
   // For more information visit https://developer.spotify.com/documentation/web-api
   private readonly clientId = '480eb2a6091f4a95892f638ade6228e5';
   private readonly redirect_uri = 'http://localhost:4200';
-  private readonly prod_redirect_uri = 'http://localhost:8080/index.html';
+  private readonly prod_redirect_uri = 'https://dashboard:4200/index.html';
 
   // Shared token value
   private accessToken: string | undefined;
