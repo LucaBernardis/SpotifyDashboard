@@ -47,5 +47,11 @@ app.MapControllers();
 // Mapping created Enpoints
 app.MapDashboardEndPoint(); // This Endpoint manage all the methods calls to make the widget on the dashboard work
 
+var configService = app.Services.GetRequiredService<ConfigService>();
+var dbContent = await configService.GetDashboardConfig();
+if (!dbContent.Any())
+{
+    await configService.CreateDashboardWidgets();
+}
 
 app.Run();
