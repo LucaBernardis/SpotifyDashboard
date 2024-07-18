@@ -27,22 +27,7 @@ namespace SpotifyDashboard.Server.Services
 
             var task = await collection.FindAsync<WidgetComponent>(new BsonDocument()); // The Find query to mongodb
 
-            var list = new List<WidgetComponent>();
-
-            while (await task.MoveNextAsync())
-            {
-                foreach (var document in task.Current)
-                {
-                    list.Add(document);
-                }
-            }
-
-            if (list.Count == 0)
-            {
-                await CreateDashboardWidgets();
-                await GetDashboardConfig();
-            }
-            return list;
+            return await task.ToListAsync();
         }
 
         /// <summary>

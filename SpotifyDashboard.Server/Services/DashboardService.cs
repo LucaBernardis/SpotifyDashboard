@@ -20,7 +20,7 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Retrieve all the data from the services and combine the results in a single <see cref="Dashboard"/> object
+        /// Retrieve all the data from the services and combine the results
         /// </summary>
         /// <param name="token">
         /// The access_token value retrieved after the authentication from the angular page, without it you are unauthorized to make any api call
