@@ -207,4 +207,48 @@ public class SpotifyTests
         Assert.NotNull(result);
         Assert.True(result.Exists(w => w.WidgetName == widgetComponentName));
     }
+
+    [Fact(DisplayName = "Se DB vuoto allora inserisci i widget standard con le loro proprieta")]
+    public async Task InserisciDatiSuSBVuoto()
+    {
+        // Arrange
+        var mockCollection = new Mock<IMongoCollection<WidgetComponent>>();
+        var mockCursor = new Mock<IAsyncCursor<WidgetComponent>>();
+        var mockClient = new Mock<IMongoClient>();
+        var mockDatabase = new Mock<IMongoDatabase>();
+
+        // Create some test data (replace with your actual data)
+        var testData = new List<WidgetComponent>
+        {
+            new WidgetComponent ("pippo"),
+        };
+
+        // Set up the mock cursor
+        int callCount = 0;
+        mockCursor.Setup(_ => _.Current).Returns(testData);
+        mockCursor.Setup(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+                   .ReturnsAsync(() => callCount++ < testData.Count);
+
+        // Set up the mock collection
+        mockCollection.Setup(c => c.FindAsync(It.IsAny<FilterDefinition<WidgetComponent>>(), It.IsAny<FindOptions<WidgetComponent, WidgetComponent>>(), It.IsAny<CancellationToken>()))
+               .ReturnsAsync(mockCursor.Object);
+
+        // Set up the mock database
+        mockDatabase.Setup(d => d.GetCollection<WidgetComponent>("Tiles", null)).Returns(mockCollection.Object);
+
+        // Set up the mock client
+        mockClient.Setup(c => c.GetDatabase("Spotify", null)).Returns(mockDatabase.Object);
+        var service = new ConfigService(mockClient.Object);
+
+        var checkDb = await service.GetDashboardConfig();
+
+        if(checkDb.Count == 0)
+        {
+            await service.CreateDashboardWidgets();
+            await service.GetDashboardConfig();
+        }
+
+        Assert.NotEqual(checkDb.Count, 0);
+    }
+
 }

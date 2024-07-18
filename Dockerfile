@@ -25,8 +25,6 @@ FROM mongo
 ENV MONGO_INITDB_ROOT_USERNAME=root
 ENV MONGO_INITDB_ROOT_PASSWORD=""
 
-# Expose ports
-EXPOSE 27017
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 RUN echo "Combine the server and the web project"
