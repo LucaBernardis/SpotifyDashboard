@@ -49,9 +49,7 @@ app.MapDashboardEndPoint(); // This Endpoint manage all the methods calls to mak
 
 var configService = app.Services.GetRequiredService<ConfigService>();
 var dbContent = await configService.GetDashboardConfig();
-if (!dbContent.Any())
-{
+if (dbContent.Count == 0)
     await configService.CreateDashboardWidgets();
-}
 
-app.Run();
+await app.RunAsync();
