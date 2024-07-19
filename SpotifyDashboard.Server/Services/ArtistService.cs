@@ -33,11 +33,13 @@ namespace SpotifyDashboard.Server.Services
             if (artist != null)
             {
                 var images = jObj?["items"]?[0]?["images"]?.AsArray();
-                artist.ImageUrl = images![0]?["url"]?.ToString();
+                if(images != null)
+                    artist.ImageUrl = images[0]!["url"]!.ToString();
             }
 
             return artist!;
         }
+
 
         /// <summary>
         /// Retrieve the most famous track of the user's favourite artist <seealso cref="GetTopArtist"/>
@@ -57,6 +59,7 @@ namespace SpotifyDashboard.Server.Services
             var topTrack = Filter.MapTracks(jObj!, "tracks");
             return topTrack[0];
         }
+
 
         /// <summary>
         /// Retrieve all the albums the artist made or is part of
@@ -79,9 +82,9 @@ namespace SpotifyDashboard.Server.Services
 
         }
 
+
         /// <summary>
-        /// Retrieve spotify new releases, its a list of albums with all the related data, 
-        /// like total tracks, data about the artist and external links to the spotify page
+        /// Retrieve spotify new released <see cref="Album"/>
         /// </summary>
         /// <returns> A <see cref="List{T}"/> of <see cref="Album"/> </returns>
         public async Task<IEnumerable<Album>> GetNewReleases()

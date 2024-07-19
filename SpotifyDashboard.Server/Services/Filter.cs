@@ -5,7 +5,7 @@ using System.Text.Json.Nodes;
 namespace SpotifyDashboard.Server.Services
 {
     /// <summary>
-    /// Provide the methods to filter the <see cref="JsonSerializer.Deserialize{TValue}(string, JsonSerializerOptions?)"/> response object
+    /// Provide the methods to filter the <see cref="JsonSerializer.Deserialize{TValue}(string, JsonSerializerOptions?)"/> response objects for <see cref="Track"/> and <see cref="Album"/>
     /// </summary>
     public static class Filter
     {
@@ -22,10 +22,10 @@ namespace SpotifyDashboard.Server.Services
             var albumsJson = new JsonArray();
 
             if (param == "items")
-                albumsJson = jsonNode?[param]?.AsArray();
+                albumsJson = jsonNode[param]!.AsArray();
             else
             {
-                var wrapper = jsonNode?[param]?.AsObject();
+                var wrapper = jsonNode[param]!.AsObject();
                 albumsJson = wrapper?["items"]?.AsArray();
             }
 
@@ -38,9 +38,9 @@ namespace SpotifyDashboard.Server.Services
 
                 if(item != null)
                 {
-                    album.SpotifyUrl = item["external_urls"]?.AsObject()?["spotify"]?.ToString();
-                    album.ImageUrl = item["images"]?.AsArray()[0]?["url"]?.ToString();
-                    album.Artist = item["artists"]?.AsArray()[0]?["name"]?.ToString();
+                    album.SpotifyUrl = item["external_urls"]!.AsObject()!["spotify"]!.ToString();
+                    album.ImageUrl = item["images"]!.AsArray()[0]!["url"]!.ToString();
+                    album.Artist = item["artists"]!.AsArray()[0]!["name"]!.ToString();
                 }  
             }
 
@@ -56,7 +56,7 @@ namespace SpotifyDashboard.Server.Services
         /// <returns> A <see cref="List{T}"/> of filtered <see cref="Track"/> objects with only the necessary data</returns>
         public static List<Track> MapTracks(JsonNode jsonNode, string param)
         {
-            var tracksJson = jsonNode?[param]?.AsArray();
+            var tracksJson = jsonNode[param]!.AsArray();
             var tracks = JsonSerializer.Deserialize<List<Track>>(tracksJson!.ToJsonString());
 
             for (int i = 0; i < tracks!.Count; i++)
@@ -66,9 +66,9 @@ namespace SpotifyDashboard.Server.Services
 
                 if(item != null)
                 {
-                    track.Artist = item["artists"]?.AsArray()[0]?["name"]?.ToString();
-                    track.ImageUrl = item["album"]?.AsObject()?["images"]?.AsArray()[0]?["url"]?.ToString();
-                    track.SpotifyUrl = item["external_urls"]?.AsObject()?["spotify"]?.ToString();
+                    track.Artist = item["artists"]!.AsArray()[0]!["name"]!.ToString();
+                    track.ImageUrl = item["album"]!.AsObject()!["images"]!.AsArray()[0]!["url"]!.ToString();
+                    track.SpotifyUrl = item["external_urls"]!.AsObject()!["spotify"]!.ToString();
                 }
                 
             }

@@ -27,13 +27,13 @@ namespace SpotifyDashboard.Server.Services
             var userData = JsonSerializer.Deserialize<User>(responseBody);
 
             // Setting the imageUrl property to the image array url value
-            userData!.ImageUrl = images?[0]?["url"]?.ToString();
+            userData!.ImageUrl = images![0]!["url"]!.ToString();
 
             return userData;
         }
 
         /// <summary>
-        /// Method to get all the user's playlists and the related data
+        /// Method to get all the user's <see cref="Playlist"> and the related data
         /// </summary>
         /// <returns> A <see cref="List{T}"/> of <see cref="Playlist"/> </returns>
         public async Task<IEnumerable<Playlist>> GetUserPlaylist()
@@ -51,29 +51,17 @@ namespace SpotifyDashboard.Server.Services
 
             var playlists = JsonSerializer.Deserialize<List<Playlist>>(items!.ToJsonString());
 
-            // For each playlist object
             for (int i = 0; i < playlists?.Count; i++)
             {
                 var playlist = playlists[i];
                 var item = items[i];
 
-                // Assign to the Owner property the value of the owner display name
-                var owner = item?["owner"]?.AsObject();
-                if (owner!.Count > 0)
+                if(item != null)
                 {
-                    playlist.Owner = owner["display_name"].ToString();
+                    playlist.Owner = item["owner"]!.AsObject()!["display_name"]!.ToString();
+                    playlist.Image = item["images"]!.AsArray()[0]!.AsObject()!["url"]!.ToString();
+                    playlist.SpotifyUrl = item["external_urls"]!.AsObject()!["spotify"]!.ToString();
                 }
-
-                // Assign to the SpotifyUrl property the value of the external spotify link
-                var exturl = item? ["external_urls"]?.AsObject();
-                if(exturl != null)
-                    playlist.SpotifyUrl = exturl["spotify"].ToString();
-
-                // Assign to the ImageUrl property the value of the image url
-                var image = item?["images"]?.AsArray()[0]?.AsObject();
-
-                if(image != null)
-                    playlist.Image = image["url"].ToString();
 
             }
 

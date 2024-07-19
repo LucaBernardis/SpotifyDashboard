@@ -17,7 +17,7 @@ namespace SpotifyDashboard.Server.Services
         }
 
         /// <summary>
-        /// Method to retrieve all the data about the <see cref="WidgetComponent"/> configuration saved on mongodb
+        /// Retrieve all the data about the <see cref="WidgetComponent"/> configuration saved on mongodb
         /// </summary>
         /// <returns> A <see cref="List{T}"/> of <see cref="WidgetComponent"/> </returns>
         public async Task<List<WidgetComponent>> GetDashboardConfig()
@@ -30,11 +30,11 @@ namespace SpotifyDashboard.Server.Services
             return await task.ToListAsync();
         }
 
+
         /// <summary>
-        /// It insert the standard <see cref="WidgetComponent"/> with their properties on the mongo db
+        /// Insert the standard <see cref="WidgetComponent"/>s with their properties on the mongodb
         /// <seealso cref="GetDashboardConfig"/>
         /// </summary>
-        /// <returns></returns>
         public async Task CreateDashboardWidgets()
         {
             // Setting mongo environment

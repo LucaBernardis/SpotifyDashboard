@@ -7,7 +7,7 @@ namespace SpotifyDashboard.Server.Services
     {
 
         /// <summary>
-        /// Method to get the top <see cref="Track"/>s of the current authenticated user
+        /// Method to get the top <see cref="Track"/>s of the current authenticated <see cref="User"/>
         /// </summary>
         /// <returns> A <see cref="List{T}"/> of <see cref="Track"/> </returns>
         public async Task<IEnumerable<Track>> GetTopTracks()
@@ -23,6 +23,7 @@ namespace SpotifyDashboard.Server.Services
 
             return tracks;
         }
+
 
         /// <summary>
         /// Method to get a list of recommended <see cref="Track"/> basing the request on the favourite <see cref="Artist"/>, his genre and his best track
