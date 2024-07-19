@@ -8,7 +8,9 @@ This application use the Spotify-Api to retreive data and manipulate them to get
 
 **Client:** Angular, Typescript
 
-**Server:** C# minimal Api, MongoDb
+**Server:** C# Minimal Api, MongoDb
+
+**Deployment:** Northflank
 
 ____
 The components that this dashboard contains are the following:
@@ -75,12 +77,15 @@ The mongo Output look somethig like this:
 `````
 {
   "_id": {
-    "$oid": "66850572b8956085e90cb0e3"
+    "$oid": "6698ce85d34223de6203b1e1"
   },
-  "widgetName": "top-ten-songs",
-  "widgetProperty": "topTenSongs",
-  "widgetLabel": "Favourite Tracks",
-  "type": "list"
+  "widgetName": "user-data",
+  "widgetProperty": "user",
+  "widgetLabel": "Dati dell'utente corrente",
+  "type": "header",
+  "width": 4,
+  "heigth": 1,
+  "position": "center"
 }
 `````
 
