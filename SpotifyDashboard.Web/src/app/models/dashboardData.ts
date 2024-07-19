@@ -1,7 +1,5 @@
-import { Artist } from "./artist";
 import { Card } from "./card";
 import { ListItem } from "./listItem";
-import { Track } from "./track";
 import { User } from "./user";
 
 export interface DashboardData{
