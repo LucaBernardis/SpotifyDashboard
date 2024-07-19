@@ -1,5 +1,3 @@
-import { Artist } from "./artist";
-
 export interface Track{
     id: string
     artist: string; // data about the artist who made the track

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ListItem } from '../../models/listItem';
+import { ListItem } from '../../../models/listItem';
 
 @Component({
   selector: 'app-new-releases',

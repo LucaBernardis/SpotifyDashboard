@@ -16,9 +16,5 @@
         public IEnumerable<ListItem> UserTopTracks { get; set; } = [];
         public IEnumerable<ListItem> UserPlaylists { get; set; } = [];
 
-        public Dashboard()
-        {
-            
-        }
     }
 }

@@ -47,7 +47,7 @@ namespace SpotifyDashboard.Server.Services
             var userTopTracks = await GetTopTracks(); // IEnumerable
             var recommendedTracks = await GetRecommendedTracks(topArtist.Id, topArtist.Genre, topArtistTopTrack.Id); // IEnumerable
 
-            // Return Dashboard object that groups the returns of all the methods with the data i ned
+            // Return Dashboard object that groups the returns of all the methods with the data i need
             return new Dashboard
             {
                 User = new User

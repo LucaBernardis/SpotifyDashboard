@@ -35,7 +35,6 @@ namespace SpotifyDashboard.Server.Models.Dashboard
         [BsonElement("position")]
         public string Position { get; set; } = "";
 
-
         public WidgetComponent()
         {
             
