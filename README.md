@@ -72,7 +72,7 @@ In my case, the key pair will be widgetName - type.
 The widgetLabel will be used as a title for the widget.
 
 #### Returns a list of WidgetComponents 
-The mongo Output look somethig like this:
+The mongo Output look something like this:
 
 `````
 {
